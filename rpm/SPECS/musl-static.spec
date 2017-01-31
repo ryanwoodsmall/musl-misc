@@ -1,10 +1,10 @@
 %define	spname		musl
 %define	musldir		%{_usr}/local/%{spname}
-%define	profiled	/etc/profile.d
+%define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -64,6 +64,9 @@ ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-5
+- use %{_sysconfdir} instead of hard-coding /etc
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-4
 - disable all optimzations
 
