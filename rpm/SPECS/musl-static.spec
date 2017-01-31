@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -15,6 +15,7 @@ Source0:	http://www.musl-libc.org/releases/%{spname}-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	glibc-static
 Requires:	gcc
+Requires:	kernel-headers
 
 %description
 %{spname} provides a new standard library to power a new generation of
@@ -42,8 +43,13 @@ make %{?_smp_mflags}
 
 %install
 %make_install
+# append our bin directory to the path
 mkdir -p %{buildroot}%{profiled}
 echo 'export PATH="${PATH}:%{musldir}/bin"' > %{buildroot}%{profiled}/%{name}.sh
+# symlink in kernel-headers stuff
+ln -s /usr/include/asm %{buildroot}%{musldir}/include/
+ln -s /usr/include/asm-generic %{buildroot}%{musldir}/include/
+ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %files
@@ -56,6 +62,11 @@ echo 'export PATH="${PATH}:%{musldir}/bin"' > %{buildroot}%{profiled}/%{name}.sh
 
 
 %changelog
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-2
+- kernel-headers symlinks
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-1
 - initial RPM build
+
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-0
 - add profile.d script
