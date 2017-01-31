@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -38,6 +38,7 @@ This package provides compiler wrappers, headers, and static libraries for
   --enable-visibility \
   --disable-shared \
   --enable-static \
+  --enable-optimize=no \
   --enable-wrapper=all
 make %{?_smp_mflags}
 
@@ -63,6 +64,9 @@ ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-4
+- disable all optimzations
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-3
 - fix description
 
