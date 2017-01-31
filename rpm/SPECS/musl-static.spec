@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -22,7 +22,8 @@ Requires:	kernel-headers
 Linux-based devices.  %{spname} is lightweight, fast, simple, free, and strives
 to be correct in the sense of standards-conformance and safety.
 
-This package provides compiler wrappers and static libraries for %{spname}.
+This package provides compiler wrappers, headers, and static libraries for
+%{spname}.
 
 
 %prep
@@ -62,6 +63,9 @@ ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-3
+- fix description
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-2
 - kernel-headers symlinks
 
