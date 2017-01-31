@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -14,6 +14,8 @@ Source0:	http://www.musl-libc.org/releases/%{spname}-%{version}.tar.gz
 
 BuildRequires:	gcc
 BuildRequires:	glibc-static
+BuildRequires:	glibc-headers
+BuildRequires:	kernel-headers
 Requires:	gcc
 Requires:	kernel-headers
 
@@ -64,6 +66,9 @@ ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-6
+- require glibc-headers
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-5
 - use %{_sysconfdir} instead of hard-coding /etc
 
