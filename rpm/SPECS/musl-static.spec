@@ -1,9 +1,10 @@
-%define	spname	musl
-%define	musldir	%{_usr}/local/%{spname}
+%define	spname		musl
+%define	musldir		%{_usr}/local/%{spname}
+%define	profiled	/etc/profile.d
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -41,6 +42,8 @@ make %{?_smp_mflags}
 
 %install
 %make_install
+mkdir -p %{buildroot}%{profiled}
+echo 'export PATH="${PATH}:%{musldir}/bin"' > %{buildroot}%{profiled}/%{name}.sh
 
 
 %files
@@ -49,8 +52,10 @@ make %{?_smp_mflags}
 %{musldir}/lib/*.o
 %{musldir}/lib/*.specs
 %{musldir}/include
+%{profiled}/%{name}.sh
 
 
 %changelog
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-0
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-1
 - initial RPM build
+- add profile.d script
