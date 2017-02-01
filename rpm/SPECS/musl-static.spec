@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.1.16
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -54,6 +54,7 @@ echo 'export PATH="${PATH}:%{musldir}/bin"' > %{buildroot}%{profiled}/%{name}.sh
 ln -s /usr/include/asm %{buildroot}%{musldir}/include/
 ln -s /usr/include/asm-generic %{buildroot}%{musldir}/include/
 ln -s /usr/include/linux %{buildroot}%{musldir}/include/
+ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %files
@@ -66,6 +67,9 @@ ln -s /usr/include/linux %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Wed Feb 1 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-7
+- /usr/include/mtd symlink for musl
+
 * Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-6
 - require glibc-headers
 
