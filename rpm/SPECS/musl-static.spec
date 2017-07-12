@@ -67,26 +67,26 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
-* Wed Feb 1 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-7
+* Wed Feb 1 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-7
 - /usr/include/mtd symlink for musl
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-6
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-6
 - require glibc-headers
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-5
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-5
 - use %{_sysconfdir} instead of hard-coding /etc
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-4
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-4
 - disable all optimzations
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-3
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-3
 - fix description
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-2
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-2
 - kernel-headers symlinks
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-1
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-1
 - initial RPM build
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.16.1-0
+* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-0
 - add profile.d script
