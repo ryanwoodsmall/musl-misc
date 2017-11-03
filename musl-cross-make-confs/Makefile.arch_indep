@@ -1,0 +1,11 @@
+SHELL   := /bin/sh
+MUSLTOP  = $(HOME)/musl
+ARCH     = $(shell uname -m)
+TRIPLET  = $(ARCH)-linux-musl
+EXPATH   = $(MUSLTOP)/$(TRIPLET)-shared/bin
+PATH    := $(PATH):$(EXPATH)
+export PATH
+all:
+	echo $(ARCH)
+	echo $(TRIPLET)
+	which $(TRIPLET)-gcc
