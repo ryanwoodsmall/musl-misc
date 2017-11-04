@@ -1,11 +1,27 @@
+# XXX - error on unset var example
+#       ifndef TEST_VAR
+#       $(error TEST_VAR not set)
+#       endif
+
+# XXX - make "shared" vs "static" a var
+#       set EXPATH and PATH on if{,n}{def,eq} check
+
+#
+# CWTOP : crosware top
+#   /usr/local/crosware?
+#
+# CWTCPREFIX : crosware toolchain prefix
+#   date/timestamp? jenkins build number?
+#
+
 SHELL   := /bin/sh
-MUSLTOP  = $(HOME)/musl
+MUSLTOP  = $(CWTOP)/software/toolchain
 ARCH     = $(shell uname -m)
 TRIPLET  = $(ARCH)-linux-musl
-EXPATH   = $(MUSLTOP)/$(TRIPLET)-shared/bin
+EXPATH   = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
 PATH    := $(PATH):$(EXPATH)
 export PATH
 all:
 	echo $(ARCH)
 	echo $(TRIPLET)
-	which $(TRIPLET)-gcc
+	which $(TRIPLET)-gcc || echo -n
