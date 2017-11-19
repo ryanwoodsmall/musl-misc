@@ -6,6 +6,16 @@
 # XXX - make "shared" vs "static" a var
 #       set EXPATH and PATH on if{,n}{def,eq} check
 
+# XXX - stages
+#       clean everything up
+#       link in shared config.mak
+#       build normal "shared" compiler with system compiler
+#       install shared compiler
+#       clean again
+#       link in static config.mak
+#       build static compiler
+#       install static compiler
+
 #
 # CWTOP : crosware top
 #   /usr/local/crosware?
@@ -14,12 +24,18 @@
 #   date/timestamp? jenkins build number?
 #
 
-SHELL   := /bin/sh
-MUSLTOP  = $(CWTOP)/software/toolchain
-ARCH     = $(shell uname -m)
-TRIPLET  = $(ARCH)-linux-musl
-EXPATH   = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
-PATH    := $(PATH):$(EXPATH)
+SHELL        := /bin/sh
+MUSLTOP       = $(CWTOP)/software/toolchain
+ARCH          = $(shell uname -m | sed 's/^\(arm\).*/\1/g')
+TRIPLET_BASE  = $(ARCH)-linux-musl
+TRIPLET       =
+ifeq ($(ARCH),arm)
+	TRIPLET=$(TRIPLET_BASE)eabihf
+else
+	TRIPLET=$(TRIPLET_BASE)
+endif
+EXPATH        = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
+PATH         := $(PATH):$(EXPATH)
 export PATH
 all:
 	echo $(ARCH)
