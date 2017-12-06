@@ -82,11 +82,13 @@ all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static bu
 
 # clean up configs everytime we run
 cleanconfs:
+	echo 'cleaning configs'
 	rm -f $(CONFMAK).common $(CONFMAK).shared $(CONFMAK).static
 
 # building on alpine in a miniroot, we may not have everything
 # we need to check we're not using busybox wget too - no ssl by default
 prereqs:
+	echo 'checking prerequisites'
 	which bzip2
 	bash --version | egrep -qi '^GNU bash'
 	curl --version | egrep -qi '(tls|ssl)'
@@ -105,6 +107,7 @@ prereqs:
 
 # $(CONFMAK) common toolchain options
 $(CONFMAK).common: cleanconfs
+	echo 'creating $@'
 	echo -n > $@
 	echo 'TARGET = $(TRIPLET)' >> $@
 	echo 'COMMON_CONFIG += CFLAGS="-g0 -Os" CXXFLAGS="-g0 -Os"' >> $@
@@ -114,12 +117,14 @@ $(CONFMAK).common: cleanconfs
 
 # temporary shared toolchain build config
 $(CONFMAK).shared: $(CONFMAK).common
+	echo 'creating $@'
 	cat $< > $@
 	echo 'COMMON_CONFIG += LDFLAGS="-s"' >> $@
 	echo 'OUTPUT = $(TMPSHAREDDIR)' >> $@
 
 # final static toolchain build config
 $(CONFMAK).static: $(CONFMAK).common
+	echo 'creating $@'
 	cat $< > $@
 	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
 	echo 'COMMON_CONFIG += LDFLAGS="-s --static"' >> $@
@@ -129,6 +134,7 @@ $(CONFMAK).static: $(CONFMAK).common
 
 # build and install temporary shared toolchain
 build_shared: $(CONFMAK).shared
+	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
 	make
@@ -137,6 +143,7 @@ build_shared: $(CONFMAK).shared
 
 # build and install final static toolchain
 build_static: $(CONFMAK).static build_shared
+	echo 'building final static compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
 	make
@@ -145,12 +152,14 @@ build_static: $(CONFMAK).static build_shared
 
 # create triplet-program symlinks to bare program
 create_symlinks: build_static
+	echo 'creating symbolic links'
 	cd $(CWSTATICINST)/bin
 	for p in `ls * | grep $(TRIPLET) | sed s/$(TRIPLET)-//g` ; do ln -sf $(TRIPLET)-$$p $$p ; done
 	cd -
 
 # final tar and compress
 archive_compiler: create_symlinks
+	echo 'archiving static compiler'
 	cd $(MUSLTOP)
 	tar -cf $(CWSTATICTAR) $(CWSTATICDIR)
 	cd -
