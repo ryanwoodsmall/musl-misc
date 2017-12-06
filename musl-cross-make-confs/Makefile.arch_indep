@@ -43,11 +43,11 @@
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
-TS            = $(shell date '+%Y%m%d%H%M%S')
-ARCH          = $(shell uname -m | sed 's/^\(arm\).*/\1/g')
+TS           := $(shell date '+%Y%m%d%H%M%S')
+ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
 # form our triplet, arm needs to be hardware float
-TRIPLET_BASE  = $(ARCH)-linux-musl
+TRIPLET_BASE := $(ARCH)-linux-musl
 TRIPLET       =
 ifeq ($(ARCH),arm)
 	TRIPLET=$(TRIPLET_BASE)eabihf
@@ -56,25 +56,25 @@ else
 endif
 
 # build out paths to expand into
-TMPSHAREDDIR  = $(PWD)/shared-build
-CWTOP         = /usr/local/crosware
-MUSLTOP       = $(CWTOP)/software/static-toolchain
-CWTCPREFIX    = $(TS)-
-CWSTATICINST  = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
+TMPSHAREDDIR := $(PWD)/shared-build
+CWTOP        := /usr/local/crosware
+MUSLTOP      := $(CWTOP)/software/static-toolchain
+CWTCPREFIX   := $(TS)-
+CWSTATICINST := $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
 
 # our final archive will be dumped to /tmp
-CWSTATICDIR   = $(shell basename $(CWSTATICINST))
-CWSTATICTAR   = /tmp/$(CWSTATICDIR).tar
-CWSTATICBZ2   = $(CWSTATICTAR).bz2
+CWSTATICDIR  := $(shell basename $(CWSTATICINST))
+CWSTATICTAR  := /tmp/$(CWSTATICDIR).tar
+CWSTATICBZ2  := $(CWSTATICTAR).bz2
 
 # and add our temp shared build to our path
-EXPATH        = $(TMPSHAREDDIR)/bin
+EXPATH       := $(TMPSHAREDDIR)/bin
 PATH         := $(PATH):$(EXPATH)
 export PATH
 
 # musl-cross-make stuff
-CONFMAK       = config.mak
-CONFMAKDIST   = $(CONFMAK).dist
+CONFMAK      := config.mak
+CONFMAKDIST  := $(CONFMAK).dist
 
 .PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler
 
