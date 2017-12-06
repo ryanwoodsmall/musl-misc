@@ -102,9 +102,9 @@ prereqs:
 	make --version | egrep -qi '^GNU Make'
 	wget --version | egrep -qi '(tls|ssl)'
 	echo
-	echo 'attempting to make directory $(MUSLTOP)'
-	echo 'if this fails, make sure you can write to $(MUSLTOP) or its parent directory'
-	mkdir -p $(MUSLTOP) 
+	echo 'attempting to make directory $(CWSTATICINST)'
+	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
+	mkdir -p $(CWSTATICINST) 
 	echo
 	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
 	test -e $(CONFMAKDIST)
