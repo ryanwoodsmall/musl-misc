@@ -10,7 +10,9 @@
 #  bzip2 (busybox should be fine)
 #  curl (with ssl/tls support)
 #  gcc/g++
+#  ln (busybox should be fine)
 #  make (gnu)
+#  sort (busybox should be fine)
 #  tar (busybox should be fine)
 #  wget (with ssl/tls support)
 
@@ -114,6 +116,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'COMMON_CONFIG += --disable-nls' >> $@
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
+	sort -o $@ $@
 
 # temporary shared toolchain build config
 $(CONFMAK).shared: $(CONFMAK).common
@@ -121,6 +124,7 @@ $(CONFMAK).shared: $(CONFMAK).common
 	cat $< > $@
 	echo 'COMMON_CONFIG += LDFLAGS="-s"' >> $@
 	echo 'OUTPUT = $(TMPSHAREDDIR)' >> $@
+	sort -o $@ $@
 
 # final static toolchain build config
 $(CONFMAK).static: $(CONFMAK).common
@@ -131,6 +135,7 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
+	sort -o $@ $@
 
 # build and install temporary shared toolchain
 build_shared: $(CONFMAK).shared
