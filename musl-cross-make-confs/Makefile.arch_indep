@@ -9,7 +9,7 @@
 #  bash (gnu)
 #  bzip2 (busybox should be fine)
 #  curl (with ssl/tls support)
-#  gcc
+#  gcc/g++
 #  make (gnu)
 #  tar (busybox should be fine)
 #  wget (with ssl/tls support)
@@ -88,8 +88,10 @@ cleanconfs:
 # we need to check we're not using busybox wget too - no ssl by default
 prereqs:
 	which bzip2
+	bash --version | egrep -qi '^GNU bash'
 	curl --version | egrep -qi '(tls|ssl)'
 	gcc  --version | egrep -qi '^gcc'
+	g++  --version | egrep -qi '^g\+\+'
 	make --version | egrep -qi '^GNU Make'
 	wget --version | egrep -qi '(tls|ssl)'
 	echo
@@ -99,6 +101,7 @@ prereqs:
 	echo
 	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
 	test -e $(CONFMAKDIST)
+	echo
 
 # $(CONFMAK) common toolchain options
 $(CONFMAK).common: cleanconfs
