@@ -1,6 +1,6 @@
 # musl-cross-make meta makefile
 
-# built to support (at least) these architectures
+# built to support (at least) these architectures:
 #  aarch64-linux-musl
 #  arm-linux-musleabihf
 #  x86_64-linux-musl
@@ -23,23 +23,23 @@
 #  cd musl-cross-make
 #  make -f <(curl -kLs https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/Makefile.arch_indep)
 
+# stages:
+#  clean everything up
+#  generate configs
+#  copy in shared config.mak
+#  build normal "shared" compiler with system compiler
+#  install shared compiler
+#  clean again
+#  copy in static config.mak
+#  build static compiler
+#  install static compiler
+#  create static compiler symlinks
+#  archive and compress static compiler
+
 # XXX - error on unset var example
 #       ifndef TEST_VAR
 #       $(error TEST_VAR not set)
 #       endif
-
-# XXX - make "shared" vs "static" a var
-#       set EXPATH and PATH on if{,n}{def,eq} check
-
-# XXX - stages
-#       clean everything up
-#       link in shared config.mak
-#       build normal "shared" compiler with system compiler
-#       install shared compiler
-#       clean again
-#       link in static config.mak
-#       build static compiler
-#       install static compiler
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
@@ -155,6 +155,8 @@ create_symlinks: build_static
 	echo 'creating symbolic links'
 	cd $(CWSTATICINST)/bin
 	for p in `ls * | grep $(TRIPLET) | sed s/$(TRIPLET)-//g` ; do ln -sf $(TRIPLET)-$$p $$p ; done
+	# or:
+	#  $(foreach p,$(shell ls $(TRIPLET)* | sed s/$(TRIPLET)-//g),ln -sf $(TRIPLET)-$p $p;)
 	cd -
 
 # final tar and compress
