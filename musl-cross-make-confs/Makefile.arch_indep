@@ -6,9 +6,12 @@
 #  x86_64-linux-musl
 
 # prereqs:
+#  bash (gnu)
+#  bzip2 (busybox should be fine)
 #  curl (with ssl/tls support)
 #  gcc
-#  gnu make
+#  make (gnu)
+#  tar (busybox should be fine)
 #  wget (with ssl/tls support)
 
 # projects:
@@ -39,7 +42,7 @@
 #       install static compiler
 
 # basic stuff: shell, timestamp and architecture
-SHELL        := /bin/sh
+SHELL        := /bin/bash
 TS            = $(shell date '+%Y%m%d%H%M%S')
 ARCH          = $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
@@ -59,8 +62,12 @@ MUSLTOP       = $(CWTOP)/software/static-toolchain
 CWTCPREFIX    = $(TS)-
 CWSTATICINST  = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
 
+# our final archive will be dumped to /tmp
+CWSTATICDIR   = $(shell basename $(CWSTATICINST))
+CWSTATICTAR   = /tmp/$(CWSTATICDIR).tar
+CWSTATICBZ2   = $(CWSTATICTAR).bz2
+
 # and add our temp shared build to our path
-#EXPATH        = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
 EXPATH        = $(TMPSHAREDDIR)/bin
 PATH         := $(PATH):$(EXPATH)
 export PATH
@@ -69,9 +76,9 @@ export PATH
 CONFMAK       = config.mak
 CONFMAKDIST   = $(CONFMAK).dist
 
-.PHONY: prereqs all build_shared build_static cleanconfs
+.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler
 
-all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static
+all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler
 
 # clean up configs everytime we run
 cleanconfs:
@@ -80,14 +87,15 @@ cleanconfs:
 # building on alpine in a miniroot, we may not have everything
 # we need to check we're not using busybox wget too - no ssl by default
 prereqs:
+	which bzip2
 	curl --version | egrep -qi '(tls|ssl)'
 	gcc  --version | egrep -qi '^gcc'
 	make --version | egrep -qi '^GNU Make'
 	wget --version | egrep -qi '(tls|ssl)'
 	echo
-	echo 'attempting to make directory $(CWSTATICINST)'
-	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
-	mkdir -p $(CWSTATICINST) 
+	echo 'attempting to make directory $(MUSLTOP)'
+	echo 'if this fails, make sure you can write to $(MUSLTOP) or its parent directory'
+	mkdir -p $(MUSLTOP) 
 	echo
 	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
 	test -e $(CONFMAKDIST)
@@ -131,3 +139,19 @@ build_static: $(CONFMAK).static build_shared
 	make
 	make install
 	make clean
+
+# create triplet-program symlinks to bare program
+create_symlinks: build_static
+	cd $(CWSTATICINST)/bin
+	for p in `ls * | grep $(TRIPLET) | sed s/$(TRIPLET)-//g` ; do ln -sf $(TRIPLET)-$$p $$p ; done
+	cd -
+
+# final tar and compress
+archive_compiler: create_symlinks
+	cd $(MUSLTOP)
+	tar -cf $(CWSTATICTAR) $(CWSTATICDIR)
+	cd -
+	bzip2 -9 $(CWSTATICTAR)
+	echo
+	echo 'static compiler archived to $(CWSTATICBZ2)'
+	echo
