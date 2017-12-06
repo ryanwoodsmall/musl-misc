@@ -1,3 +1,25 @@
+# musl-cross-make meta makefile
+
+# built to support (at least) these architectures
+#  aarch64-linux-musl
+#  arm-linux-musleabihf
+#  x86_64-linux-musl
+
+# prereqs:
+#  curl (with ssl/tls support)
+#  gcc
+#  gnu make
+#  wget (with ssl/tls support)
+
+# projects:
+#  musl-cross-make: https://github.com/richfelker/musl-cross-make
+#  crosware: https://github.com/ryanwoodsmall/crosware
+
+# example usage with bash fd substitution:
+#  git clone https://github.com/richfelker/musl-cross-make.git
+#  cd musl-cross-make
+#  make -f <(curl -kLs https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/Makefile.arch_indep)
+
 # XXX - error on unset var example
 #       ifndef TEST_VAR
 #       $(error TEST_VAR not set)
@@ -16,17 +38,12 @@
 #       build static compiler
 #       install static compiler
 
-#
-# CWTOP : crosware top
-#   /usr/local/crosware?
-#
-# CWTCPREFIX : crosware toolchain prefix
-#   date/timestamp? jenkins build number?
-#
-
+# basic stuff: shell, timestamp and architecture
 SHELL        := /bin/sh
-MUSLTOP       = $(CWTOP)/software/toolchain
+TS            = $(shell date '+%Y%m%d%H%M%S')
 ARCH          = $(shell uname -m | sed 's/^\(arm\).*/\1/g')
+
+# form our triplet, arm needs to be hardware float
 TRIPLET_BASE  = $(ARCH)-linux-musl
 TRIPLET       =
 ifeq ($(ARCH),arm)
@@ -34,10 +51,83 @@ ifeq ($(ARCH),arm)
 else
 	TRIPLET=$(TRIPLET_BASE)
 endif
-EXPATH        = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
+
+# build out paths to expand into
+TMPSHAREDDIR  = $(PWD)/shared-build
+CWTOP         = /usr/local/crosware
+MUSLTOP       = $(CWTOP)/software/static-toolchain
+CWTCPREFIX    = $(TS)-
+CWSTATICINST  = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
+
+# and add our temp shared build to our path
+#EXPATH        = $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)-shared/bin
+EXPATH        = $(TMPSHAREDDIR)/bin
 PATH         := $(PATH):$(EXPATH)
 export PATH
-all:
-	echo $(ARCH)
-	echo $(TRIPLET)
-	which $(TRIPLET)-gcc || echo -n
+
+# musl-cross-make stuff
+CONFMAK       = config.mak
+CONFMAKDIST   = $(CONFMAK).dist
+
+.PHONY: prereqs all build_shared build_static cleanconfs
+
+all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static
+
+# clean up configs everytime we run
+cleanconfs:
+	rm -f $(CONFMAK).common $(CONFMAK).shared $(CONFMAK).static
+
+# building on alpine in a miniroot, we may not have everything
+# we need to check we're not using busybox wget too - no ssl by default
+prereqs:
+	curl --version | egrep -qi '(tls|ssl)'
+	gcc  --version | egrep -qi '^gcc'
+	make --version | egrep -qi '^GNU Make'
+	wget --version | egrep -qi '(tls|ssl)'
+	echo
+	echo 'attempting to make directory $(CWSTATICINST)'
+	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
+	mkdir -p $(CWSTATICINST) 
+	echo
+	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
+	test -e $(CONFMAKDIST)
+
+# $(CONFMAK) common toolchain options
+$(CONFMAK).common: cleanconfs
+	echo -n > $@
+	echo 'TARGET = $(TRIPLET)' >> $@
+	echo 'COMMON_CONFIG += CFLAGS="-g0 -Os" CXXFLAGS="-g0 -Os"' >> $@
+	echo 'COMMON_CONFIG += --disable-nls' >> $@
+	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
+	echo 'GCC_CONFIG += --disable-multilib' >> $@
+
+# temporary shared toolchain build config
+$(CONFMAK).shared: $(CONFMAK).common
+	cat $< > $@
+	echo 'COMMON_CONFIG += LDFLAGS="-s"' >> $@
+	echo 'OUTPUT = $(TMPSHAREDDIR)' >> $@
+
+# final static toolchain build config
+$(CONFMAK).static: $(CONFMAK).common
+	cat $< > $@
+	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
+	echo 'COMMON_CONFIG += LDFLAGS="-s --static"' >> $@
+	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
+	echo 'OUTPUT = $(CWSTATICINST)' >> $@
+	echo 'GCC_CONFIG += --disable-host-shared' >> $@
+
+# build and install temporary shared toolchain
+build_shared: $(CONFMAK).shared
+	cat $< > $(CONFMAK)
+	make clean || echo -n
+	make
+	make install
+	make clean
+
+# build and install final static toolchain
+build_static: $(CONFMAK).static build_shared
+	cat $< > $(CONFMAK)
+	make clean || echo -n
+	make
+	make install
+	make clean
