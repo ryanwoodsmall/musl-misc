@@ -161,9 +161,9 @@ build_static: $(CONFMAK).static build_shared
 # create triplet-program symlinks to bare program
 create_symlinks: build_static
 	echo 'creating symbolic links'
-	cd $(CWSTATICINST)/bin ; for p in `ls * | grep $(TRIPLET) | sed s/$(TRIPLET)-//g` ; do ln -sf $(TRIPLET)-$$p $$p ; done
+	cd $(CWSTATICINST)/bin ; for p in `find . -name $(TRIPLET)-\* | sed s#./$(TRIPLET)-##g` ; do ln -sf $(TRIPLET)-$$p $$p ; done
 	# or:
-	#  $(foreach p,$(shell ls $(TRIPLET)* | sed s/$(TRIPLET)-//g),ln -sf $(TRIPLET)-$p $p;)
+	#  $(foreach p,$(shell find . -name $(TRIPLET)-\* | sed s#./$(TRIPLET)-##g),ln -sf $(TRIPLET)-$p $p;)
 
 # final tar and compress
 archive_compiler: create_symlinks
