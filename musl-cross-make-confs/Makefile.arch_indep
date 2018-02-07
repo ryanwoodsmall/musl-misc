@@ -3,6 +3,7 @@
 # built to support (at least) these architectures:
 #  aarch64-linux-musl
 #  arm-linux-musleabihf
+#  i686-linux-musl
 #  x86_64-linux-musl
 
 # prereqs:
@@ -49,7 +50,7 @@
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
-TS           := $(shell date '+%Y%m%d%H%M%S')
+TS           := $(shell date '+%Y%m%d%H%M')
 ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
 # form our triplet, arm needs to be hardware float

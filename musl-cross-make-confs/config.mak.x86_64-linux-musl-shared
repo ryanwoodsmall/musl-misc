@@ -1,7 +1,0 @@
-TARGET = x86_64-linux-musl
-OUTPUT = $(HOME)/musl/x86_64-linux-musl-shared
-COMMON_CONFIG += CFLAGS="-g0 -Os" CXXFLAGS="-g0 -Os" LDFLAGS="-s"
-COMMON_CONFIG += --disable-nls
-COMMON_CONFIG += --with-debug-prefix-map=$(CURDIR)=
-GCC_CONFIG += --enable-languages=c,c++
-GCC_CONFIG += --disable-multilib
