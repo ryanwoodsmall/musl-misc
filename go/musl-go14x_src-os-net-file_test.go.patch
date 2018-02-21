@@ -1,0 +1,94 @@
+--- a/go/src/net/file_test.go
++++ b/go/src/net/file_test.go
+@@ -159,47 +159,47 @@
+ 	}
+ }
+ 
+-var filePacketConnTests = []struct {
+-	net   string
+-	addr  string
+-	ipv6  bool // test with underlying AF_INET6 socket
+-	linux bool // test with abstract unix domain socket, a Linux-ism
+-}{
+-	{net: "udp", addr: "127.0.0.1"},
+-	{net: "udp", addr: "[::ffff:127.0.0.1]"},
+-	{net: "udp", addr: "[::1]", ipv6: true},
+-
+-	{net: "udp4", addr: "127.0.0.1"},
+-	{net: "udp4", addr: "[::ffff:127.0.0.1]"},
+-
+-	{net: "udp6", addr: "[::1]", ipv6: true},
+-
+-	{net: "ip4:icmp", addr: "127.0.0.1"},
+-
+-	{net: "unixgram", addr: "@gotest3/net", linux: true},
+-}
+-
+-func TestFilePacketConn(t *testing.T) {
+-	switch runtime.GOOS {
+-	case "nacl", "plan9", "windows":
+-		t.Skipf("skipping test on %q", runtime.GOOS)
+-	}
+-
+-	for _, tt := range filePacketConnTests {
+-		if skipServerTest(tt.net, "unixgram", tt.addr, tt.ipv6, false, tt.linux) {
+-			continue
+-		}
+-		if os.Getuid() != 0 && tt.net == "ip4:icmp" {
+-			t.Log("skipping test; must be root")
+-			continue
+-		}
+-		testFilePacketConnListen(t, tt.net, tt.addr)
+-		switch tt.addr {
+-		case "", "0.0.0.0", "[::ffff:0.0.0.0]", "[::]":
+-		default:
+-			if tt.net != "unixgram" {
+-				testFilePacketConnDial(t, tt.net, tt.addr)
+-			}
+-		}
+-	}
+-}
++//var filePacketConnTests = []struct {
++//	net   string
++//	addr  string
++//	ipv6  bool // test with underlying AF_INET6 socket
++//	linux bool // test with abstract unix domain socket, a Linux-ism
++//}{
++//	{net: "udp", addr: "127.0.0.1"},
++//	{net: "udp", addr: "[::ffff:127.0.0.1]"},
++//	{net: "udp", addr: "[::1]", ipv6: true},
++//
++//	{net: "udp4", addr: "127.0.0.1"},
++//	{net: "udp4", addr: "[::ffff:127.0.0.1]"},
++//
++//	{net: "udp6", addr: "[::1]", ipv6: true},
++//
++//	{net: "ip4:icmp", addr: "127.0.0.1"},
++//
++//	{net: "unixgram", addr: "@gotest3/net", linux: true},
++//}
++//
++//func TestFilePacketConn(t *testing.T) {
++//	switch runtime.GOOS {
++//	case "nacl", "plan9", "windows":
++//		t.Skipf("skipping test on %q", runtime.GOOS)
++//	}
++//
++//	for _, tt := range filePacketConnTests {
++//		if skipServerTest(tt.net, "unixgram", tt.addr, tt.ipv6, false, tt.linux) {
++//			continue
++//		}
++//		if os.Getuid() != 0 && tt.net == "ip4:icmp" {
++//			t.Log("skipping test; must be root")
++//			continue
++//		}
++//		testFilePacketConnListen(t, tt.net, tt.addr)
++//		switch tt.addr {
++//		case "", "0.0.0.0", "[::ffff:0.0.0.0]", "[::]":
++//		default:
++//			if tt.net != "unixgram" {
++//				testFilePacketConnDial(t, tt.net, tt.addr)
++//			}
++//		}
++//	}
++//}
