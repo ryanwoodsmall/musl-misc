@@ -52,6 +52,11 @@
 #       https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 #     - add optional "test -e config.mak.custom" & append to config.mak 
 
+# XXX - need to figure out static-only
+#     - just removing ld-*.so and libc.so may be enough?
+#     - or leaving in place...
+#       set custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64?
+
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
 TS           := $(shell date '+%Y%m%d%H%M')
