@@ -57,6 +57,22 @@
 #     - or leaving in place...
 #       set custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64?
 
+# XXX - ARM 32-bit flags
+#     - mostly want to stay compatible with armv6/vfp/hard-float (Pi 1, Pi zero)
+#     - gcc flags will be something like "--with-arch=armv6 --with-float=hard --with-fpu=vfp"
+#     - vfp vs vfpv2?
+#     - rpi1 and pi0 arch are arm1176jzf-s, flags should possibly be:
+#       -march=armv6kz
+#       -mcpu=arm1176jzf-s
+#       -mtune=arm1176jzf-s
+#       -mfpu=vfp
+#       -mfloat-abi=hard
+#     - should work as expected on ARMv7-A/Cortex-A series
+#     - links:
+#       - https://wiki.musl-libc.org/getting-started.html#Notes_on_ARM_Float_Mode
+#       - https://raspberrypi.stackexchange.com/questions/2046/which-cpu-flags-are-suitable-for-gcc-on-raspberry-pi
+#       - https://www.raspberrypi.org/forums/viewtopic.php?t=11629
+
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
 TS           := $(shell date '+%Y%m%d%H%M')
