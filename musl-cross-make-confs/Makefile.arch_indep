@@ -72,6 +72,8 @@
 #       - https://wiki.musl-libc.org/getting-started.html#Notes_on_ARM_Float_Mode
 #       - https://raspberrypi.stackexchange.com/questions/2046/which-cpu-flags-are-suitable-for-gcc-on-raspberry-pi
 #       - https://www.raspberrypi.org/forums/viewtopic.php?t=11629
+#       - https://github.com/richfelker/musl-cross-make/issues/34
+#       - https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
