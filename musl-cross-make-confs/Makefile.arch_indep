@@ -172,6 +172,9 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
+	#echo '$$\(shell find . -name \*linux\*.h -exec sed -i.ORIG 's|"/lib/ld-musl.*"|"$(CWCURRENTLD)"|g' {} \;\)' >> $@
+	# XXX - works, but does it WORK?
+	#echo $$\(shell find . -name \\*linux\\*.h -exec sed -i.ORIG 's#"/lib/ld-musl.*"#"$(CWCURRENTLD)"#g' {} + \) >> $@
 
 # build and install temporary shared toolchain
 build_shared: $(CONFMAK).shared
