@@ -1,6 +1,6 @@
 # musl-cross-make meta makefile
 
-# built to support (at least) these architectures:
+# built to support these architectures:
 #  aarch64-linux-musl
 #  arm-linux-musleabihf
 #  i686-linux-musl
@@ -52,28 +52,31 @@
 #       https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 #     - add optional "test -e config.mak.custom" & append to config.mak 
 
-# XXX - need to figure out static-only
-#     - just removing ld-*.so and libc.so may be enough?
-#     - or leaving in place...
-#       set custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64?
+# ARM 32-bit flags
+#   - mostly want to stay compatible with armv6/vfp/hard-float (Pi 1, Pi zero)
+#   - gcc flags will be something like "--with-arch=armv6 --with-float=hard --with-fpu=vfp"
+#   - vfp vs vfpv2?
+#   - rpi1 and pi0 arch are arm1176jzf-s, flags should possibly be:
+#     -march=armv6kz
+#     -mcpu=arm1176jzf-s
+#     -mtune=arm1176jzf-s
+#     -mfpu=vfp
+#     -mfloat-abi=hard
+#   - should work as expected on ARMv7-A/Cortex-A series
+#   - links:
+#     - https://wiki.musl-libc.org/getting-started.html#Notes_on_ARM_Float_Mode
+#     - https://raspberrypi.stackexchange.com/questions/2046/which-cpu-flags-are-suitable-for-gcc-on-raspberry-pi
+#     - https://www.raspberrypi.org/forums/viewtopic.php?t=11629
+#     - https://github.com/richfelker/musl-cross-make/issues/34
+#     - https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
 
-# XXX - ARM 32-bit flags
-#     - mostly want to stay compatible with armv6/vfp/hard-float (Pi 1, Pi zero)
-#     - gcc flags will be something like "--with-arch=armv6 --with-float=hard --with-fpu=vfp"
-#     - vfp vs vfpv2?
-#     - rpi1 and pi0 arch are arm1176jzf-s, flags should possibly be:
-#       -march=armv6kz
-#       -mcpu=arm1176jzf-s
-#       -mtune=arm1176jzf-s
-#       -mfpu=vfp
-#       -mfloat-abi=hard
-#     - should work as expected on ARMv7-A/Cortex-A series
-#     - links:
-#       - https://wiki.musl-libc.org/getting-started.html#Notes_on_ARM_Float_Mode
-#       - https://raspberrypi.stackexchange.com/questions/2046/which-cpu-flags-are-suitable-for-gcc-on-raspberry-pi
-#       - https://www.raspberrypi.org/forums/viewtopic.php?t=11629
-#       - https://github.com/richfelker/musl-cross-make/issues/34
-#       - https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
+# shared/static
+#   - need to figure out true static-only
+#   - libc.so is only shared lib, left in place
+#   - ld-musl-${arch}.so symlinks fixed to point to full path to libc.so
+#   - patch sets custom ld.so for each arch in its triplet directory
+#     - sets custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64 with full path
+#     - applied only during final static compilation step
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
@@ -88,6 +91,13 @@ ifeq ($(ARCH),arm)
 else
 	TRIPLET=$(TRIPLET_BASE)
 endif
+
+# and cpu-specific stuff
+ARCH_GCC_CONFIG =
+ifeq ($(ARCH),arm)
+	# hard-float only, default to and tune for rpi even on arm 32-bit
+	ARCH_GCC_CONFIG='--with-arch=armv6kz --with-tune=arm1176jzf-s --with-float=hard --with-fpu=vfp'
+else
 
 # build out paths to expand into
 TMPSHAREDDIR := $(PWD)/shared-build
@@ -152,6 +162,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'COMMON_CONFIG += --disable-nls' >> $@
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
+	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	sort -o $@ $@
 
 # temporary shared toolchain build config
