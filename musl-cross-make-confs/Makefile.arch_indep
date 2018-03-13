@@ -95,6 +95,10 @@ CWTOP        := /usr/local/crosware
 MUSLTOP      := $(CWTOP)/software/static-toolchain
 CWTCPREFIX   := $(TS)-
 CWSTATICINST := $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
+CWARCHDIR    := $(CWSTATICINST)/$(TRIPLET)
+CWARCHLIBDIR := $(CWARCHDIR)/lib
+CWCURRENT    := $(MUSLTOP)/current
+CWCURRENTLD  := $(CWCURRENT)/$(TRIPLET)/lib/ld.so
 
 # our final archive will be dumped to /tmp
 CWSTATICDIR  := $(shell basename $(CWSTATICINST))
@@ -103,7 +107,7 @@ CWSTATICBZ2  := $(CWSTATICTAR).bz2
 
 # and add our temp shared build to our path
 EXPATH       := $(TMPSHAREDDIR)/bin
-PATH         := $(PATH):$(EXPATH)
+PATH         := $(EXPATH):$(PATH)
 export PATH
 
 # musl-cross-make stuff
@@ -174,6 +178,8 @@ build_shared: $(CONFMAK).shared
 	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
+	#make
+	#find gcc* -type f -name \*linux\*.h -exec grep -l 'ld.*musl.*\.so.*' {} \; | xargs sed -i.ORIG 's|"/lib/ld-musl.*"|"$(CWCURRENTLD)"|g'
 	make
 	make install
 	make clean
@@ -181,8 +187,11 @@ build_shared: $(CONFMAK).shared
 # build and install final static toolchain
 build_static: $(CONFMAK).static build_shared
 	echo 'building final static compiler'
+	hash -r
 	cat $< > $(CONFMAK)
 	make clean || echo -n
+	#make
+	#find gcc* -type f -name \*linux\*.h -exec grep -l 'ld.*musl.*\.so.*' {} \; | xargs sed -i.ORIG 's|"/lib/ld-musl.*"|"$(CWCURRENTLD)"|g'
 	make
 	make install
 	make clean
@@ -191,6 +200,8 @@ build_static: $(CONFMAK).static build_shared
 create_symlinks: build_static
 	echo 'creating symbolic links'
 	cd $(CWSTATICINST)/bin ; for p in $(TRIPLET)-* ; do ln -sf $$p `echo $$p | sed s/$(TRIPLET)-//g` ; done
+	cd $(CWARCHLIBDIR) ; for l in ld*.so* ; do ln -sf `pwd`/libc.so $$l ; done
+	cd $(CWARCHLIBDIR) ; ln -sf `pwd`/libc.so ld.so
 
 # final tar and compress
 archive_compiler: create_symlinks
