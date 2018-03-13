@@ -6,7 +6,7 @@
  #endif
 -#define MUSL_DYNAMIC_LINKER \
 -  "/lib/ld-musl-arm" MUSL_DYNAMIC_LINKER_E "%{mfloat-abi=hard:hf}.so.1"
-+#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/static-toolchain/current/arm-linux-musleabihf/ld.so"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/static-toolchain/current/arm-linux-musleabihf/lib/ld.so"
  
  /* At this point, bpabi.h will have clobbered LINK_SPEC.  We want to
     use the GNU/Linux version, not the generic BPABI version.  */
@@ -38,7 +38,7 @@
  
  #undef MUSL_DYNAMIC_LINKER
 -#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
-+#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/static-toolchain/current/aarch64-linux-musl/ld.so"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/static-toolchain/current/aarch64-linux-musl/lib/ld.so"
  
  #undef  ASAN_CC1_SPEC
  #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
