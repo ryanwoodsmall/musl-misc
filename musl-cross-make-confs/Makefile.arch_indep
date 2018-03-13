@@ -97,7 +97,7 @@ ARCH_GCC_CONFIG =
 ifeq ($(ARCH),arm)
 	# hard-float only, default to and tune for rpi even on arm 32-bit
 	ARCH_GCC_CONFIG='--with-arch=armv6kz --with-tune=arm1176jzf-s --with-float=hard --with-fpu=vfp'
-else
+endif
 
 # build out paths to expand into
 TMPSHAREDDIR := $(PWD)/shared-build
