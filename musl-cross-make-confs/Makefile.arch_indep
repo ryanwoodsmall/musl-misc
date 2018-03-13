@@ -114,7 +114,7 @@ export PATH
 CONFMAK      := config.mak
 CONFMAKDIST  := $(CONFMAK).dist
 
-.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler
+.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches
 
 all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler
 
@@ -173,17 +173,25 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
 
+get_patches:
+	# XXX - change when default GCC is updated
+	rm -f ./patches/gcc-6.3.0/*crosware*
+	wget -P ./patches/gcc-6.3.0/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso.diff
+	# XXX - hackity hacky hack
+
 # build and install temporary shared toolchain
 build_shared: $(CONFMAK).shared
 	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
+	# XXX - change when default GCC is updated
+	rm -f ./patches/gcc-6.3.0/*crosware*
 	make
 	make install
 	make clean
 
 # build and install final static toolchain
-build_static: $(CONFMAK).static build_shared
+build_static: $(CONFMAK).static build_shared get_patches
 	echo 'building final static compiler'
 	hash -r
 	cat $< > $(CONFMAK)
@@ -191,6 +199,8 @@ build_static: $(CONFMAK).static build_shared
 	make
 	make install
 	make clean
+	# XXX - change when default GCC is updated
+	rm -f ./patches/gcc-6.3.0/*crosware*
 
 # create triplet-program symlinks to bare program
 create_symlinks: build_static
