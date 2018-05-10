@@ -8,3 +8,8 @@ musl C library miscellaneous
 ## links
 - **musl-libc** : http://www.musl-libc.org/
 - **musl-cross-make** : https://github.com/richfelker/musl-cross-make
+
+## todo
+- 20180510
+  - update to latest musl-cross-make gcc 6.4.0 default
+  - patch for ld.so based on gcc 6.4.0 
