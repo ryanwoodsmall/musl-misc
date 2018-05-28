@@ -105,7 +105,7 @@ endif
 # build out paths to expand into
 TMPSHAREDDIR := $(PWD)/shared-build
 CWTOP        := /usr/local/crosware
-MUSLTOP      := $(CWTOP)/software/static-toolchain
+MUSLTOP      := $(CWTOP)/software/statictoolchain
 CWTCPREFIX   := $(TS)-
 CWSTATICINST := $(MUSLTOP)/$(CWTCPREFIX)$(TRIPLET)
 CWARCHDIR    := $(CWSTATICINST)/$(TRIPLET)
