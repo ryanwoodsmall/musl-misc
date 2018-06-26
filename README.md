@@ -8,3 +8,9 @@ musl C library miscellaneous
 ## links
 - **musl-libc** : http://www.musl-libc.org/
 - **musl-cross-make** : https://github.com/richfelker/musl-cross-make
+
+## todo
+**20180626**
+- new musl-cross-make build
+- integrate off64\_t/loff\_t fixes (https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html)
+- split out ld.so patch into multiple arches?
