@@ -12,5 +12,5 @@ musl C library miscellaneous
 ## todo
 **20180626**
 - new musl-cross-make build
-- integrate off64\_t/loff\_t fixes (https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html)
+- integrate off64\_t/loff\_t fixes (for gccgo, etc.: https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html)
 - split out ld.so patch into multiple arches?
