@@ -18,7 +18,7 @@ musl C library miscellaneous
   - http://gcc.1065356.n8.nabble.com/libgo-patch-committed-Fill-out-syscall-package-for-GNU-Linux-td491220.html
   - ```-D_LARGEFILE_SOURCE``` and/or ```-D_LARGEFILE64_SOURCE```? ```${OSCFLAGS}```
 - split out ld.so patch into multiple arches?
-- binutils needs a patch to set ```ELF(|(32|64))_DYNAMIC_INTERPRETER```:
+- binutils needs a patch to set ```ELF(|(32|64))_DYNAMIC_INTERPRETER``` (found via compiling **jed** and getting an ELF dynamic bin with ```/lib/ld64.so.1``` as its interp):
 ```
 binutils-2.27 $ egrep -Hr '#define.*DYNAMIC_INTERPRETER.*/(lib|ld).*\.so' | sort
 bfd/elf32-arc.c:#define ELF_DYNAMIC_INTERPRETER  "/sbin/ld-uClibc.so"
