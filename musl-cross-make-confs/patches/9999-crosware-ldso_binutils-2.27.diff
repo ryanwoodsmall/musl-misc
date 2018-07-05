@@ -1,0 +1,50 @@
+diff -Naur binutils-2.27.ORIG/bfd/elf32-arm.c binutils-2.27/bfd/elf32-arm.c
+--- binutils-2.27.ORIG/bfd/elf32-arm.c	2016-08-03 07:36:50.000000000 +0000
++++ binutils-2.27/bfd/elf32-arm.c	2018-07-05 05:34:11.720097986 +0000
+@@ -2140,7 +2140,7 @@
+ 
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+-#define ELF_DYNAMIC_INTERPRETER     "/usr/lib/ld.so.1"
++#define ELF_DYNAMIC_INTERPRETER     "/usr/local/crosware/software/statictoolchain/current/arm-linux-musleabihf/lib/ld.so"
+ 
+ static const unsigned long tls_trampoline [] =
+ {
+diff -Naur binutils-2.27.ORIG/bfd/elf32-i386.c binutils-2.27/bfd/elf32-i386.c
+--- binutils-2.27.ORIG/bfd/elf32-i386.c	2016-08-03 07:36:50.000000000 +0000
++++ binutils-2.27/bfd/elf32-i386.c	2018-07-05 05:35:14.196820325 +0000
+@@ -532,7 +532,7 @@
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+ 
+-#define ELF_DYNAMIC_INTERPRETER "/usr/lib/libc.so.1"
++#define ELF_DYNAMIC_INTERPRETER "/usr/local/crosware/software/statictoolchain/current/i686-linux-musl/lib/ld.so"
+ 
+ /* If ELIMINATE_COPY_RELOCS is non-zero, the linker will try to avoid
+    copying dynamic variables from a shared lib into an app's dynbss
+diff -Naur binutils-2.27.ORIG/bfd/elf64-x86-64.c binutils-2.27/bfd/elf64-x86-64.c
+--- binutils-2.27.ORIG/bfd/elf64-x86-64.c	2016-08-03 07:36:51.000000000 +0000
++++ binutils-2.27/bfd/elf64-x86-64.c	2018-07-05 05:35:36.461364956 +0000
+@@ -530,8 +530,8 @@
+ /* The name of the dynamic interpreter.	 This is put in the .interp
+    section.  */
+ 
+-#define ELF64_DYNAMIC_INTERPRETER "/lib/ld64.so.1"
+-#define ELF32_DYNAMIC_INTERPRETER "/lib/ldx32.so.1"
++#define ELF64_DYNAMIC_INTERPRETER "/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/lib/ld.so"
++#define ELF32_DYNAMIC_INTERPRETER "/usr/local/crosware/software/statictoolchain/current/i686-linux-musl/lib/ld.so"
+ 
+ /* If ELIMINATE_COPY_RELOCS is non-zero, the linker will try to avoid
+    copying dynamic variables from a shared lib into an app's dynbss
+diff -Naur binutils-2.27.ORIG/bfd/elfnn-aarch64.c binutils-2.27/bfd/elfnn-aarch64.c
+--- binutils-2.27.ORIG/bfd/elfnn-aarch64.c	2016-08-03 07:36:51.000000000 +0000
++++ binutils-2.27/bfd/elfnn-aarch64.c	2018-07-05 05:34:56.268186991 +0000
+@@ -2019,7 +2019,7 @@
+ 
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+-#define ELF_DYNAMIC_INTERPRETER     "/lib/ld.so.1"
++#define ELF_DYNAMIC_INTERPRETER     "/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so"
+ 
+ #define AARCH64_MAX_FWD_BRANCH_OFFSET \
+   (((1 << 25) - 1) << 2)
