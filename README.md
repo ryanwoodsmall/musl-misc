@@ -10,7 +10,6 @@ musl C library miscellaneous
 - **musl-cross-make** : https://github.com/richfelker/musl-cross-make
 
 ## todo
-**20180626**
 - new musl-cross-make build
 - integrate off64\_t/loff\_t fixes for gccgo, etc.:
   - https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html
