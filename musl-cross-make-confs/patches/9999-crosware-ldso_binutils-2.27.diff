@@ -48,3 +48,12 @@ diff -Naur binutils-2.27.ORIG/bfd/elfnn-aarch64.c binutils-2.27/bfd/elfnn-aarch6
  
  #define AARCH64_MAX_FWD_BRANCH_OFFSET \
    (((1 << 25) - 1) << 2)
+diff -Naur binutils-2.27.ORIG/ld/emulparams/aarch64linux.sh binutils-2.27/ld/emulparams/aarch64linux.sh
+--- binutils-2.27.ORIG/ld/emulparams/aarch64linux.sh	2014-10-14 07:32:04.000000000 +0000
++++ binutils-2.27/ld/emulparams/aarch64linux.sh	2018-07-06 07:12:45.765685172 +0000
+@@ -46,4 +46,4 @@
+     ;;
+ esac
+ 
+-ELF_INTERPRETER_NAME=\"/lib/ld-linux-aarch64.so.1\"
++ELF_INTERPRETER_NAME=\"/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so\"
