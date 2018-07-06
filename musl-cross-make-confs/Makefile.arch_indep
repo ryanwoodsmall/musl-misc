@@ -188,6 +188,7 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
 
+# custom ld.so path stuff
 get_patches: remove_patches
 	# XXX - change when default versions are updated
 	mkdir -p ./patches/gcc-$(GCCVER) || true
@@ -200,12 +201,10 @@ remove_patches:
 	rm -f ./patches/*/*crosware* || true
 
 # build and install temporary shared toolchain
-build_shared: $(CONFMAK).shared remove_patches
+build_shared: $(CONFMAK).shared get_patches
 	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
-	# XXX - change when default GCC is updated
-	rm -f ./patches/gcc-$(GCCVER)/*crosware*
 	make
 	make install
 	make clean
@@ -219,8 +218,6 @@ build_static: $(CONFMAK).static build_shared get_patches
 	make
 	make install
 	make clean
-	# XXX - change when default GCC is updated
-	rm -f ./patches/gcc-$(GCCVER)/*crosware*
 
 # create triplet-program symlinks to bare program
 create_symlinks: build_static

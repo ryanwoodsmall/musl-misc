@@ -16,4 +16,3 @@ musl C library miscellaneous
   - http://gcc.1065356.n8.nabble.com/libgo-patch-committed-Fill-out-syscall-package-for-GNU-Linux-td491220.html
   - ```-D_LARGEFILE_SOURCE``` and/or ```-D_LARGEFILE64_SOURCE```? ```${OSCFLAGS}```
 - split out ld.so patches into multiple arches?
-- clean up get_patches/remove_patches dupes in **musl-cross-make-confs/Makefile.arch_indep**
