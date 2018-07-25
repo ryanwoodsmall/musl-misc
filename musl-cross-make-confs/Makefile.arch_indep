@@ -52,6 +52,12 @@
 #       https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 #     - add optional "test -e config.mak.custom" & append to config.mak 
 
+#
+# tuning
+#   - i want these to be able to build/run code for the big four architectures
+#   - ... and elsewhere
+#
+
 # ARM 32-bit flags
 #   - mostly want to stay compatible with armv6/vfp/hard-float (Pi 1, Pi zero)
 #   - gcc flags will be something like "--with-arch=armv6 --with-float=hard --with-fpu=vfp"
@@ -69,6 +75,23 @@
 #     - https://www.raspberrypi.org/forums/viewtopic.php?t=11629
 #     - https://github.com/richfelker/musl-cross-make/issues/34
 #     - https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
+
+# ARM 64-bit
+#   - fewer options here
+#   - probably tune to cortex-a53 to be safe-ish
+#   - cortex-a35?
+#     -march=armv8{.1}-a{+[no]{crc,crypto,fp,simd,lse}}
+#     -mtune={generic,cortex-a{35,53,57,72}}
+
+# intel 32-bit
+#   - lowest common denominator is geode, like an i486 w/mmx?
+#   - musl requires i486+ (or cmpxchg emulation)
+#     -march=... i486? i586/pentium? i686/pentium-pro? pentium-mmx? geode?
+#     -mtune=... generic (default, i686)? pentium-mmx? geode?
+
+# intel 64-bit
+#   - lcd is probably atom
+#   - bonnell or silvermont?
 
 # shared/static
 #   - need to figure out true static-only
@@ -99,7 +122,7 @@ endif
 # and cpu-specific stuff
 ARCH_GCC_CONFIG =
 ifeq ($(ARCH),arm)
-	# hard-float only, default to and tune for rpi even on arm 32-bit
+	# hard-float only, default arch to and tune for rpi on arm 32-bit
 	ARCH_GCC_CONFIG='--with-arch=armv6kz --with-tune=arm1176jzf-s --with-float=hard --with-fpu=vfp'
 endif
 
