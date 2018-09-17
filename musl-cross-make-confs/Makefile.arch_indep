@@ -29,6 +29,8 @@
 #  git clone https://github.com/richfelker/musl-cross-make.git
 #  cd musl-cross-make
 #  make -f <(curl -kLs https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/Makefile.arch_indep)
+# command i normally use:
+#  ( time ( make -f <(curl -kLs https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/Makefile.arch_indep) ) ) >/tmp/musl-cross-make.out 2>&1
 
 # stages:
 #  clean everything up
