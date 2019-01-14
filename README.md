@@ -20,3 +20,5 @@ musl C library miscellaneous
   - ```musl-gcc```
   - ```musl-g++```
   - ```musl-ldd``` (```ld.so``` or ```libc.so```, via https://wiki.musl-libc.org/faq.html#Q:-Where-is-%3Ccode%3Eldd%3C/code%3E?)
+- makefile probably needs to define ```-fPIC```
+- a fake sysroot is needed (perl and the like can use it
