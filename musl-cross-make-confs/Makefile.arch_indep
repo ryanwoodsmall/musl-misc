@@ -187,7 +187,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'creating $@'
 	echo -n > $@
 	echo 'TARGET = $(TRIPLET)' >> $@
-	echo 'COMMON_CONFIG += CFLAGS="-g0 -Os" CXXFLAGS="-g0 -Os"' >> $@
+	echo 'COMMON_CONFIG += CFLAGS="-fPIC -g0 -Os" CXXFLAGS="-fPIC -g0 -Os"' >> $@
 	echo 'COMMON_CONFIG += --disable-nls' >> $@
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
