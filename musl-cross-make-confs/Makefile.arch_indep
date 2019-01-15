@@ -243,14 +243,20 @@ build_static: $(CONFMAK).static build_shared get_patches
 	make
 	make install
 	# XXX - need binutils libs for self-hosting?
+	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/bfd/libbfd.a $(CWARCHLIBDIR)/
+	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/libiberty/libiberty.a $(CWARCHLIBDIR)/
+	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/opcodes/libopcodes.a $(CWARCHLIBDIR)/
 	#make clean
 
 # create triplet-program symlinks to bare program
 create_symlinks: build_static
 	echo 'creating symbolic links'
 	cd $(CWSTATICINST)/bin ; for p in $(TRIPLET)-* ; do ln -sf $$p `echo $$p | sed s/$(TRIPLET)-//g` ; done
+	cd $(CWSTATICINST)/bin ; for p in $(TRIPLET)-* ; do ln -sf $$p `echo $$p | sed s/$(TRIPLET)-/musl-/g` ; done
 	cd $(CWARCHLIBDIR) ; for l in ld*.so* ; do ln -sf `pwd`/libc.so $$l ; done
 	cd $(CWARCHLIBDIR) ; ln -sf `pwd`/libc.so ld.so
+	cd $(CWARCHLIBDIR) ; ln -sf `pwd`/libc.so ldd
+	cd $(CWARCHLIBDIR) ; ln -sf `pwd`/ldd $(CWSTATICINST)/bin/musl-ldd
 
 # final tar and compress
 archive_compiler: create_symlinks
