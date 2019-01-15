@@ -242,7 +242,8 @@ build_static: $(CONFMAK).static build_shared get_patches
 	make clean || echo -n
 	make
 	make install
-	make clean
+	# XXX - need binutils libs for self-hosting?
+	#make clean
 
 # create triplet-program symlinks to bare program
 create_symlinks: build_static
