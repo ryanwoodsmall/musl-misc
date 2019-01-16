@@ -39,6 +39,12 @@ musl C library miscellaneous
       - mpc
       - binutils
   - testing on https://github.com/ryanwoodsmall/dockerfiles/tree/master/crosware
+  - this gets through a shared build:
+    - ```LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LIBS="-L${cwsw}/binutils/current/lib/ -liberty" LDFLAGS="${LDFLAGS} -s --static" make -f ~/Makefile.arch_indep```
+    - but flakes out with c++/abi diffs again'
+    - shared vs static vs host-shared?
+    - tinkering with ```COMMON_CONFIG="--build=$(gcc -dumpmachine) --target=$(gcc -dumpmachine) --host=$(gcc -dumpmachine)"```
+      - musl-cross-make sets target, may override or ignore build/host
 
 #### this doesn't work:
 
