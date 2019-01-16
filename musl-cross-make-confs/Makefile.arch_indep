@@ -244,12 +244,14 @@ build_static: $(CONFMAK).static build_shared get_patches
 	make install
 	# XXX - need binutils/gmp/mpc/mpfr libs for self-hosting?
 	# XXX - is this safe???
-	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/bfd/libbfd.a $(CWARCHLIBDIR)/
-	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/libiberty/libiberty.a $(CWARCHLIBDIR)/
-	install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/opcodes/libopcodes.a $(CWARCHLIBDIR)/
-	install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/gmp/.libs/libgmp.a $(CWARCHLIBDIR)/
-	install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/mpc/src/.libs/libmpc.a $(CWARCHLIBDIR)/
-	install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/mpfr/src/.libs/libmpfr.a $(CWARCHLIBDIR)/
+	# XXX - crosware has gmp, mpfr, mpc, binutils recipes now...
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/bfd/libbfd.a $(CWARCHLIBDIR)/
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/libiberty/libiberty.a $(CWARCHLIBDIR)/
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_binutils/opcodes/libopcodes.a $(CWARCHLIBDIR)/
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/gmp/.libs/libgmp.a $(CWARCHLIBDIR)/
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/mpc/src/.libs/libmpc.a $(CWARCHLIBDIR)/
+	#install -m 0644 ./build/local/$(TRIPLET)/obj_gcc/mpfr/src/.libs/libmpfr.a $(CWARCHLIBDIR)/
+	# XXX - reenable when things shake out
 	#make clean
 
 # create triplet-program symlinks to bare program
