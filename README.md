@@ -36,6 +36,9 @@ musl C library miscellaneous
       - mpfr
       - mpc
       - binutils
+
+#### this doesn't work:
+
 ```
 env \
   LD_LIBRARY_PATH="$(echo ${cwsw}/{binutils,gmp,mpc,mpfr}/current/lib | tr ' ' ':')" \
