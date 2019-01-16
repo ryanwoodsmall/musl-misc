@@ -16,14 +16,19 @@ musl C library miscellaneous
   - http://gcc.1065356.n8.nabble.com/libgo-patch-committed-Fill-out-syscall-package-for-GNU-Linux-td491220.html
   - ```-D_LARGEFILE_SOURCE``` and/or ```-D_LARGEFILE64_SOURCE```? ```${OSCFLAGS}```
 - split out ld.so patches into multiple arches?
-- symlinks
-  - ```musl-gcc```
-  - ```musl-g++```
-  - ```musl-ldd``` (```ld.so``` or ```libc.so```, via https://wiki.musl-libc.org/faq.html#Q:-Where-is-%3Ccode%3Eldd%3C/code%3E?)
-- a fake sysroot is needed (perl and the like can use it
+- a fake sysroot is needed (perl and the like can use it)
 - need to be able to self-host
   - currently dies on compiling shared objects and/in C++ ABI issues
   - libtool? use slibtool?
+  - slibtool helps here...
+    - binutils: dies with missing symbols from libiberty.a (htab_)
+    - mpfr: dies with missing gmp
+  - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
+    - or try busybox wget and relax gnu check?
+  - environment...
+    - **wget wrapper**
+    - libtool -> slibtool symlink
+    - ```env LIBTOOL=slibtool CPPFLAGS= CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS= LIBS='-liberty -lgmp -lmpfr' make -f ~/Makefile.arch_indep```
   - error ad infinitum
 ```
 libtool: link: x86_64-linux-musl-g++  -fPIC -DPIC -shared -nostdlib /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_
