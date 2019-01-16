@@ -20,8 +20,11 @@ musl C library miscellaneous
 - a fake sysroot is needed (perl and the like can use it)
 
 ### bootstrapping
+- alpine works fine
+  - see apk and bash/curl commands in comments
 - crosware
   - need to be able to self-host
+    - can't
     - currently dies on compiling shared objects and/in C++ ABI issues
     - libtool? use slibtool
     - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
@@ -36,9 +39,11 @@ musl C library miscellaneous
       - mpfr
       - mpc
       - binutils
+  - testing on https://github.com/ryanwoodsmall/dockerfiles/tree/master/crosware
 
 #### this doesn't work:
 
+leads to c++ abi issues previously observed (https://github.com/ryanwoodsmall/musl-misc/blob/776f8211b8019e8197ae0e9dcf0b524d29b43d81/README.md)
 ```
 env \
   LD_LIBRARY_PATH="$(echo ${cwsw}/{binutils,gmp,mpc,mpfr}/current/lib | tr ' ' ':')" \
