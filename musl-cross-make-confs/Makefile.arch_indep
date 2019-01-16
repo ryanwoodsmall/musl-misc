@@ -192,13 +192,14 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
+	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	sort -o $@ $@
 
 # temporary shared toolchain build config
 $(CONFMAK).shared: $(CONFMAK).common
 	echo 'creating $@'
 	cat $< > $@
-	echo 'COMMON_CONFIG += LDFLAGS="-s"' >> $@
+	echo 'COMMON_CONFIG += LDFLAGS="$(LDFLAGS) -s"' >> $@
 	echo 'OUTPUT = $(TMPSHAREDDIR)' >> $@
 	sort -o $@ $@
 
@@ -207,7 +208,7 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'creating $@'
 	cat $< > $@
 	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
-	echo 'COMMON_CONFIG += LDFLAGS="-s --static"' >> $@
+	echo 'COMMON_CONFIG += LDFLAGS="$(LDFLAGS) -s --static"' >> $@
 	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
