@@ -54,6 +54,12 @@
 #       https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 #     - add optional "test -e config.mak.custom" & append to config.mak 
 
+# XXX - need static and shared config
+#       SHARED_CONFIG
+#       STATIC_CONFIG
+#     - bundle into COMMON_CONFIG or GCC_CONFIG?
+#     - inherit from env with += $(...)
+
 #
 # tuning
 #   - i want these to be able to build/run code for the big four architectures
@@ -210,6 +216,9 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
 	echo 'COMMON_CONFIG += LDFLAGS="$(LDFLAGS) -s --static"' >> $@
 	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
+	#echo 'COMMON_CONFIG += --build="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
+	#echo 'COMMON_CONFIG += --host="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
+	#echo 'COMMON_CONFIG += --target="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
