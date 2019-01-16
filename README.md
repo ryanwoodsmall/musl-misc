@@ -33,7 +33,6 @@ musl C library miscellaneous
       - **wget wrapper**
       - libtool -> slibtool symlink
       - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
-      - ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS="${LDFLAGS//-static/}" LIBS='-liberty' make -f ~/Makefile.arch_indep```
     - errors ad infinitum
       - gmp
       - mpfr
@@ -43,7 +42,9 @@ musl C library miscellaneous
 
 #### this doesn't work:
 
-leads to c++ abi issues previously observed (https://github.com/ryanwoodsmall/musl-misc/blob/776f8211b8019e8197ae0e9dcf0b524d29b43d81/README.md)
+- nope ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS="${LDFLAGS//-static/}" LIBS='-liberty' make -f ~/Makefile.arch_indep```
+- huh uh? ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LIBS="-L${cwsw}/binutils/current/lib/ -liberty" LDFLAGS="${LDFLAGS} -s --static" make -f ~/Makefile.arch_indep  ) ) >/tmp/musl-cross-make.out 2>&1```
+- leads to c++ abi issues previously observed (https://github.com/ryanwoodsmall/musl-misc/blob/776f8211b8019e8197ae0e9dcf0b524d29b43d81/README.md)
 ```
 env \
   LD_LIBRARY_PATH="$(echo ${cwsw}/{binutils,gmp,mpc,mpfr}/current/lib | tr ' ' ':')" \
