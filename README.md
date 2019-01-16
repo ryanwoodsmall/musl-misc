@@ -8,6 +8,7 @@ musl C library miscellaneous
 ## links
 - **musl-libc** : http://www.musl-libc.org/
 - **musl-cross-make** : https://github.com/richfelker/musl-cross-make
+- **crosware**, where this is used : https://github.com/ryanwoodsmall/crosware
 
 ## todo
 - integrate off64\_t/loff\_t fixes for gccgo, etc.:
@@ -17,35 +18,31 @@ musl C library miscellaneous
   - ```-D_LARGEFILE_SOURCE``` and/or ```-D_LARGEFILE64_SOURCE```? ```${OSCFLAGS}```
 - split out ld.so patches into multiple arches?
 - a fake sysroot is needed (perl and the like can use it)
-- need to be able to self-host
-  - currently dies on compiling shared objects and/in C++ ABI issues
-  - libtool? use slibtool?
-  - slibtool helps here...
-    - binutils: dies with missing symbols from libiberty.a (htab_)
-    - mpfr: dies with missing gmp
-  - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
-    - or try busybox wget and relax gnu check?
-  - environment...
-    - **wget wrapper**
-    - libtool -> slibtool symlink
-    - ```env LIBTOOL=slibtool CPPFLAGS= CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS= LIBS='-liberty -lgmp -lmpfr' make -f ~/Makefile.arch_indep```
-  - error ad infinitum
+
+### bootstrapping
+- crosware
+  - need to be able to self-host
+    - currently dies on compiling shared objects and/in C++ ABI issues
+    - libtool? use slibtool
+    - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
+      - or try busybox wget and relax gnu check?
+    - environment...
+      - **wget wrapper**
+      - libtool -> slibtool symlink
+      - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
+      - ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS="${LDFLAGS//-static/}" LIBS='-liberty' make -f ~/Makefile.arch_indep```
+    - errors ad infinitum
+      - gmp
+      - mpfr
+      - mpc
+      - binutils
 ```
-libtool: link: x86_64-linux-musl-g++  -fPIC -DPIC -shared -nostdlib /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_
-64-linux-musl/lib/crti.o /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/crtbeginS.o  .libs/findcomp.o .libs/libcc1.o .libs/names.o 
-.libs/callbacks.o .libs/connection.o .libs/marshall.o   -L/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0 -L/usr/local/crosware/soft
-ware/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc -L/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86
-_64-linux-musl/lib -L/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../x86_64-linux-musl/lib /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-mu
-sl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/lib/libstdc++.a -lm -lc -lgcc /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64
--linux-musl/6.4.0/crtendS.o /usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/lib/crtn.o  -static-libstd
-c++ -static-libgcc ../libiberty/pic/libiberty.a   -Wl,-soname -Wl,libcc1.so.0 -Wl,-retain-symbols-file -Wl,../../src_gcc/libcc1/libcc1.sym -o .libs/libcc1.so.0.0.0
-/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/bin/ld: /usr/local/crosware/software/statictoolchain/2
-01901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/lib/libstdc++.a(class_type_info.o): relocation R_X86_64_32S against symbol `_ZTVN10__cxxabiv117__cla
-ss_type_infoE' can not be used when making a shared object; recompile with -fPIC
-/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/bin/ld: /usr/local/crosware/software/statictoolchain/2
-01901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/lib/libstdc++.a(eh_aux_runtime.o): relocation R_X86_64_32 against symbol `_ZNSt8bad_castD1Ev' can no
-t be used when making a shared object; recompile with -fPIC
-/usr/local/crosware/software/statictoolchain/201901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/bin/ld: /usr/local/crosware/software/statictoolchain/2
-01901150448-x86_64-linux-musl/bin/../lib/gcc/x86_64-linux-musl/6.4.0/../../../../x86_64-linux-musl/lib/libstdc++.a(eh_globals.o): relocation R_X86_64_TPOFF32 against `_ZZN12_GLOBAL__N_110get_globalEv
-E6global' can not be used when making a shared object; recompile with -fPIC
+env \
+  LD_LIBRARY_PATH="$(echo ${cwsw}/{binutils,gmp,mpc,mpfr}/current/lib | tr ' ' ':')" \
+  LIBTOOL=slibtool \
+  CFLAGS=-fPIC \
+  CXXFLAGS=-fPIC \
+  LIBS=-liberty \
+  LDFLAGS="${LDFLAGS//-static/}" \
+  make -f ~/Makefile.arch_indep >/tmp/musl-cross-make.out 2>&1
 ```
