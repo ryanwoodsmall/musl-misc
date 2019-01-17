@@ -197,8 +197,10 @@ $(CONFMAK).common: cleanconfs
 	echo 'COMMON_CONFIG += --disable-nls' >> $@
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
+	echo 'GCC_CONFIG += --disable-lto' >> $@
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
+	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
 	sort -o $@ $@
 
 # temporary shared toolchain build config
@@ -216,9 +218,9 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
 	echo 'COMMON_CONFIG += LDFLAGS="$(LDFLAGS) -s --static"' >> $@
 	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
-	#echo 'COMMON_CONFIG += --build="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
-	#echo 'COMMON_CONFIG += --host="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
-	#echo 'COMMON_CONFIG += --target="$$(shell $(TRIPLET)-gcc -dumpmachine)"' >> $@
+	#echo 'COMMON_CONFIG += --build=$(TRIPLET)' >> $@
+	#echo 'COMMON_CONFIG += --host=$(TRIPLET)' >> $@
+	#echo 'COMMON_CONFIG += --target=$(TRIPLET)' >> $@
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
