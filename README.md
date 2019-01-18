@@ -24,30 +24,31 @@ musl C library miscellaneous
   - see apk and bash/curl commands in comments
 - crosware
   - need to be able to self-host
-    - can't
-    - currently dies on compiling shared objects and/in C++ ABI issues
-    - libtool? use slibtool
-    - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
-      - or try busybox wget and relax gnu check?
-    - environment...
-      - **wget wrapper**
-      - libtool -> slibtool symlink
-      - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
-    - errors ad infinitum
-      - gmp
-      - mpfr
-      - mpc
-      - binutils
+  - need a ```${cwsw}/wget/current/bin/wget --no-check-certificate "${@}"``` wrapper
+    - or try busybox wget and relax gnu check?
+  - environment...
+    - **wget wrapper**
+    - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
   - testing on https://github.com/ryanwoodsmall/dockerfiles/tree/master/crosware
-  - this gets through a shared build:
-    - ```LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LIBS="-L${cwsw}/binutils/current/lib/ -liberty" LDFLAGS="${LDFLAGS} -s --static" make -f ~/Makefile.arch_indep```
-    - but flakes out with c++/abi diffs again'
-    - shared vs static vs host-shared?
-    - tinkering with ```COMMON_CONFIG="--build=$(gcc -dumpmachine) --target=$(gcc -dumpmachine) --host=$(gcc -dumpmachine)"```
-      - musl-cross-make sets target, may override or ignore build/host
 
-#### this doesn't work:
+#### this doesn't work:::
 
+**OLD**
+
+- libtool? use slibtool
+- errors ad infinitum
+  - gmp (fixed)
+  - mpfr (fixed)
+  - mpc (fixed)
+  - binutils (fixed)
+- libtool -> slibtool symlink
+- currently dies on compiling shared objects and/in C++ ABI issues
+- this gets through a shared build:
+  - ```LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LIBS="-L${cwsw}/binutils/current/lib/ -liberty" LDFLAGS="${LDFLAGS} -s --static" make -f ~/Makefile.arch_indep```
+  - but flakes out with c++/abi diffs again'
+  - shared vs static vs host-shared?
+  - tinkering with ```COMMON_CONFIG="--build=$(gcc -dumpmachine) --target=$(gcc -dumpmachine) --host=$(gcc -dumpmachine)"```
+  - musl-cross-make sets target, may override or ignore build/host
 - nope ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LDFLAGS="${LDFLAGS//-static/}" LIBS='-liberty' make -f ~/Makefile.arch_indep```
 - huh uh? ```env LIBTOOL=slibtool CFLAGS=-fPIC CXXFLAGS=-fPIC LIBS="-L${cwsw}/binutils/current/lib/ -liberty" LDFLAGS="${LDFLAGS} -s --static" make -f ~/Makefile.arch_indep  ) ) >/tmp/musl-cross-make.out 2>&1```
 - leads to c++ abi issues previously observed (https://github.com/ryanwoodsmall/musl-misc/blob/776f8211b8019e8197ae0e9dcf0b524d29b43d81/README.md)
