@@ -180,7 +180,13 @@ prereqs:
 	gcc  --version | egrep -qi '^gcc'
 	g++  --version | egrep -qi '^g\+\+'
 	make --version | egrep -qi '^GNU Make'
-	wget --version | egrep -qi '(tls|ssl)'
+	# XXX - busybox wget from crosware appears to work fine
+	# XXX - just verify it's available for now
+	# XXX - DL_CMD defaults to "wget -c -O"
+	# XXX - append --no-check-certificate to force cert acceptance?
+	# XXX - change to "curl k -C - -L -o" in config.mak.common and avoid wget completely?
+	#wget --version | egrep -qi '(tls|ssl)'
+	which wget
 	echo
 	echo 'attempting to make directory $(CWSTATICINST)'
 	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
