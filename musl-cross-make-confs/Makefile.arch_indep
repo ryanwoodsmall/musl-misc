@@ -23,7 +23,8 @@
 #  chralpine (if you can't use docker): https://github.com/ryanwoodsmall/shell-ish/blob/master/bin/chralpine.sh
 
 # install alpine prereqs:
-#  apk update ; apk add git make gcc g++ make curl wget bash
+#  XXX - need to figure out man page generation requirements, is groff enough?
+#  apk update ; apk add git make gcc g++ make curl wget bash groff
 
 # example usage with bash fd substitution:
 #  git clone https://github.com/richfelker/musl-cross-make.git
@@ -184,8 +185,9 @@ prereqs:
 	# XXX - just verify it's available for now
 	# XXX - DL_CMD defaults to "wget -c -O"
 	# XXX - append --no-check-certificate to force cert acceptance?
-	# XXX - change to "curl k -C - -L -o" in config.mak.common and avoid wget completely?
 	#wget --version | egrep -qi '(tls|ssl)'
+	# change to "curl -k -C - -L -o" in config.mak.common to avoid wget completely
+	# check left for posterity...
 	which wget
 	echo
 	echo 'attempting to make directory $(CWSTATICINST)'
@@ -200,6 +202,7 @@ prereqs:
 $(CONFMAK).common: cleanconfs
 	echo 'creating $@'
 	echo -n > $@
+	echo 'DL_CMD = curl -k -C - -L -o' >> $@
 	echo 'TARGET = $(TRIPLET)' >> $@
 	echo 'COMMON_CONFIG += CFLAGS="-fPIC -g0 -Os" CXXFLAGS="-fPIC -g0 -Os"' >> $@
 	echo 'COMMON_CONFIG += --disable-nls' >> $@
