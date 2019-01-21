@@ -24,7 +24,7 @@
 
 # install alpine prereqs:
 #  XXX - need to figure out man page generation requirements, is groff enough?
-#  apk update ; apk add git make gcc g++ make curl wget bash groff
+#  apk update ; apk add git make gcc g++ make curl wget bash groff texinfo gettext gettext-static gettext-libs gettext-dev
 
 # example usage with bash fd substitution:
 #  git clone https://github.com/richfelker/musl-cross-make.git
