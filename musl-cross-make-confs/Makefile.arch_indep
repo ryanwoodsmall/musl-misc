@@ -112,7 +112,7 @@
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
-ifeq ($(TS),))
+ifeq ($(TS),)
 TS           := $(shell date '+%Y%m%d%H%M')
 endif
 ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
