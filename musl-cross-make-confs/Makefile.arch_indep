@@ -110,6 +110,8 @@
 #     - sets custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64 with full path
 #     - applied only during final static compilation step
 
+# XXX - add a file identifying the git commit of musl-cross-make
+
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
 ifeq ($(TS),)

@@ -10,6 +10,11 @@ musl C library miscellaneous
 - **musl-cross-make** : https://github.com/richfelker/musl-cross-make
 - **crosware**, where this is used : https://github.com/ryanwoodsmall/crosware
 
+## docker dockerfiles/scripts/resources
+- musl static lib rpm: https://github.com/ryanwoodsmall/dockerfiles/tree/master/centos-rpm-builds
+- crosware static toolchain builder: https://github.com/ryanwoodsmall/dockerfiles/tree/master/crosware/statictoolchain
+- docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
+
 ## todo
 - integrate off64\_t/loff\_t fixes for gccgo, etc.:
   - https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html
@@ -29,7 +34,6 @@ musl C library miscellaneous
   - environment...
     - **wget wrapper**
     - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
-  - testing on https://github.com/ryanwoodsmall/dockerfiles/tree/master/crosware
 
 #### this doesn't work:::
 
