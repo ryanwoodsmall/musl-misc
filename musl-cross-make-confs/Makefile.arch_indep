@@ -211,6 +211,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += --enable-languages=c,c++' >> $@
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
 	echo 'GCC_CONFIG += --disable-lto' >> $@
+	#echo 'GCC_CONFIG += --with-pic' >> $@
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
