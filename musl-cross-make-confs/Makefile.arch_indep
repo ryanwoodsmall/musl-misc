@@ -240,6 +240,7 @@ $(CONFMAK).static: $(CONFMAK).common
 	cat $< > $@
 	echo 'COMMON_CONFIG += --enable-shared=no --disable-shared --enable-static=yes --enable-static' >> $@
 	echo 'COMMON_CONFIG += LDFLAGS="$(LDFLAGS) -s --static"' >> $@
+	# XXX - need -fPIC in CC/CXX def?
 	echo 'COMMON_CONFIG += CC="$(TRIPLET)-gcc -static --static" CXX="$(TRIPLET)-g++ -static --static"' >> $@
 	#echo 'COMMON_CONFIG += --build=$(TRIPLET)' >> $@
 	#echo 'COMMON_CONFIG += --host=$(TRIPLET)' >> $@
