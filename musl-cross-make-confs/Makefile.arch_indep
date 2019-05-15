@@ -112,6 +112,12 @@
 
 # XXX - add a file identifying the git commit of musl-cross-make
 
+# XXX - libstdc++.a objects being compiled without -fPIC, why?
+#       makes .so link hard/impossible
+#       maybe "-no-pie" is needed?
+#       bah
+#       - https://stackoverflow.com/questions/46827433/g-compile-error-rodata-can-not-be-used-when-making-a-shared-object-recomp
+
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
 ifeq ($(TS),)
