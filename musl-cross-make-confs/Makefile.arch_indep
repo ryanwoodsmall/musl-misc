@@ -117,6 +117,7 @@
 #       maybe "-no-pie" is needed?
 #       bah
 #       - https://stackoverflow.com/questions/46827433/g-compile-error-rodata-can-not-be-used-when-making-a-shared-object-recomp
+#       - https://github.com/rust-lang/rust/issues/47037
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
@@ -219,6 +220,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += --disable-lto' >> $@
 	#echo 'GCC_CONFIG += --with-pic' >> $@
 	#echo 'GCC_CONFIG += --enable-cxx-flags=-fPIC' >> $@
+	#echo 'GCC_CONFIG += --disable-default-pie' >> $@
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
