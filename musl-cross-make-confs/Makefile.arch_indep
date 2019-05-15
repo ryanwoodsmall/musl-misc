@@ -212,6 +212,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += --disable-multilib' >> $@
 	echo 'GCC_CONFIG += --disable-lto' >> $@
 	#echo 'GCC_CONFIG += --with-pic' >> $@
+	#echo 'GCC_CONFIG += --enable-cxx-flags=-fPIC' >> $@
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
@@ -236,6 +237,7 @@ $(CONFMAK).static: $(CONFMAK).common
 	#echo 'COMMON_CONFIG += --host=$(TRIPLET)' >> $@
 	#echo 'COMMON_CONFIG += --target=$(TRIPLET)' >> $@
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
+	# XXX - need this? need libstdc++ compiled w/-fPIC, not sure how...
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
 	sort -o $@ $@
 
