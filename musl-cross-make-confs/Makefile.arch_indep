@@ -60,6 +60,9 @@
 #       STATIC_CONFIG
 #     - bundle into COMMON_CONFIG or GCC_CONFIG?
 #     - inherit from env with += $(...)
+#     - --with-boot-ldflags=... ?
+#     - C++ is still broken on building a shared .so with libstdc++.a
+#     - default rpath of $(CWCURRENT)/$(TRIPLET)lib?
 
 #
 # tuning
