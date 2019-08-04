@@ -182,7 +182,7 @@ CONFMAKDIST  := $(CONFMAK).dist
 
 .PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches muslsha
 
-all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler muslsha
+all: muslsha prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler
 
 # generate a musl sha file if there isn't one
 muslsha:
