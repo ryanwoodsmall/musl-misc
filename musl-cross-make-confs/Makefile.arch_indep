@@ -132,6 +132,7 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 # versions
 GCCVER       := 6.4.0
 BINUTILSVER  := 2.27
+MUSLVER      := 1.1.22
 
 # form our triplet, arm needs to be hardware float
 TRIPLET_BASE := $(ARCH)-linux-musl
@@ -214,6 +215,9 @@ prereqs:
 $(CONFMAK).common: cleanconfs
 	echo 'creating $@'
 	echo -n > $@
+	echo 'GCC_VER = $(GCCVER)' >> $@
+	echo 'BINUTILS_VER = $(BINUTILSVER)' >> $@
+	echo 'MUSL_VER = $(MUSLVER)' >> $@
 	echo 'DL_CMD = curl -k -C - -L -o' >> $@
 	echo 'TARGET = $(TRIPLET)' >> $@
 	echo 'COMMON_CONFIG += CFLAGS="-fPIC -g0 -Os" CXXFLAGS="-fPIC -g0 -Os"' >> $@
