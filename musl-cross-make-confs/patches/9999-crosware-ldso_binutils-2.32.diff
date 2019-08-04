@@ -1,0 +1,43 @@
+--- binutils-2.32.PRISTINE/bfd/elf32-arm.c
++++ binutils-2.32/bfd/elf32-arm.c
+@@ -2259,7 +2259,7 @@
+ 
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+-#define ELF_DYNAMIC_INTERPRETER     "/usr/lib/ld.so.1"
++#define ELF_DYNAMIC_INTERPRETER     "/usr/local/crosware/software/statictoolchain/current/arm-linux-musleabihf/lib/ld.so"
+ 
+ /* FDPIC default stack size.  */
+ #define DEFAULT_STACK_SIZE 0x8000
+--- binutils-2.32.PRISTINE/bfd/elfnn-aarch64.c
++++ binutils-2.32/bfd/elfnn-aarch64.c
+@@ -2266,7 +2266,7 @@
+ 
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+-#define ELF_DYNAMIC_INTERPRETER     "/lib/ld.so.1"
++#define ELF_DYNAMIC_INTERPRETER     "/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so"
+ 
+ #define AARCH64_MAX_FWD_BRANCH_OFFSET \
+   (((1 << 25) - 1) << 2)
+--- binutils-2.32.PRISTINE/bfd/elfxx-x86.c
++++ binutils-2.32/bfd/elfxx-x86.c
+@@ -27,8 +27,8 @@
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+ 
+-#define ELF32_DYNAMIC_INTERPRETER "/usr/lib/libc.so.1"
+-#define ELF64_DYNAMIC_INTERPRETER "/lib/ld64.so.1"
++#define ELF32_DYNAMIC_INTERPRETER "/usr/local/crosware/software/statictoolchain/current/i686-linux-musl/lib/ld.so"
++#define ELF64_DYNAMIC_INTERPRETER "/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/lib/ld.so"
+ #define ELFX32_DYNAMIC_INTERPRETER "/lib/ldx32.so.1"
+ 
+ bfd_boolean
+--- binutils-2.32.PRISTINE/ld/emulparams/aarch64linux.sh
++++ binutils-2.32/ld/emulparams/aarch64linux.sh
+@@ -46,4 +46,4 @@
+     ;;
+ esac
+ 
+-ELF_INTERPRETER_NAME=\"/lib/ld-linux-aarch64.so.1\"
++ELF_INTERPRETER_NAME=\"/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so\"

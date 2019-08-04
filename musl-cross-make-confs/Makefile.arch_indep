@@ -131,7 +131,7 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
 # versions
 GCCVER       := 6.4.0
-BINUTILSVER  := 2.27
+BINUTILSVER  := 2.32
 MUSLVER      := 1.1.23
 ISLVER       := 0.15
 
