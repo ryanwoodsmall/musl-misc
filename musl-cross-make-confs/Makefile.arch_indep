@@ -132,8 +132,12 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 # versions
 GCCVER       := 6.4.0
 BINUTILSVER  := 2.27
-MUSLVER      := 1.1.22
+MUSLVER      := 1.1.23
 ISLVER       := 0.15
+
+# musl
+MUSLSHA1 := 98f3991d67e0e11dd091eb65890285d8417c7d05
+MUSLFILE := musl-$(MUSLVER).tar.gz
 
 # form our triplet, arm needs to be hardware float
 TRIPLET_BASE := $(ARCH)-linux-musl
@@ -176,9 +180,13 @@ export PATH
 CONFMAK      := config.mak
 CONFMAKDIST  := $(CONFMAK).dist
 
-.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches
+.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches muslsha
 
-all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler
+all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler muslsha
+
+# generate a musl sha file if there isn't one
+muslsha:
+	test -e hashes/$(MUSLFILE).sha1 || echo '$(MUSLSHA1)  $(MUSLFILE)' > hashes/$(MUSLFILE).sha1
 
 # clean up configs everytime we run
 cleanconfs:
