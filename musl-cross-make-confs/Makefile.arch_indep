@@ -133,6 +133,7 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 GCCVER       := 6.4.0
 BINUTILSVER  := 2.27
 MUSLVER      := 1.1.22
+ISLVER       := 0.15
 
 # form our triplet, arm needs to be hardware float
 TRIPLET_BASE := $(ARCH)-linux-musl
@@ -218,6 +219,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_VER = $(GCCVER)' >> $@
 	echo 'BINUTILS_VER = $(BINUTILSVER)' >> $@
 	echo 'MUSL_VER = $(MUSLVER)' >> $@
+	echo 'ISL_VER = $(ISLVER)' >> $@
 	echo 'DL_CMD = curl -k -C - -L -o' >> $@
 	echo 'TARGET = $(TRIPLET)' >> $@
 	echo 'COMMON_CONFIG += CFLAGS="-fPIC -g0 -Os" CXXFLAGS="-fPIC -g0 -Os"' >> $@
