@@ -23,6 +23,13 @@ musl C library miscellaneous
   - ```-D_LARGEFILE_SOURCE``` and/or ```-D_LARGEFILE64_SOURCE```? ```${OSCFLAGS}```
 - split out ld.so patches into multiple arches?
 - a fake sysroot is needed (perl and the like can use it)
+- utmp/wtmp, i.e:
+```
+/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/include/utmp.h:#define _PATH_UTMP "/dev/null/utmp"
+/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/include/utmp.h:#define _PATH_WTMP "/dev/null/wtmp"
+/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/include/paths.h:#define _PATH_UTMP       "/dev/null/utmp"
+/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/include/paths.h:#define _PATH_WTMP       "/dev/null/wtmp"
+```
 
 ### bootstrapping
 - alpine works fine
