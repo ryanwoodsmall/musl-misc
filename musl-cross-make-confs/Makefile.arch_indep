@@ -136,7 +136,7 @@ MUSLVER      := 1.1.24
 ISLVER       := 0.21
 
 # musl
-MUSLSHA1 := 1370c9a812b2cf2a7d92802510cca0058cc37e66a7bedd70051f0a34015022a3
+MUSLSHA1 := b0b5ddf6b65355ac02e2f11c3d262ac5dcf0bab5
 MUSLFILE := musl-$(MUSLVER).tar.gz
 
 # form our triplet, arm needs to be hardware float
