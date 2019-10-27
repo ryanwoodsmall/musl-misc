@@ -132,11 +132,11 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 # versions
 GCCVER       := 8.3.0
 BINUTILSVER  := 2.32
-MUSLVER      := 1.1.23
+MUSLVER      := 1.1.24
 ISLVER       := 0.21
 
 # musl
-MUSLSHA1 := 98f3991d67e0e11dd091eb65890285d8417c7d05
+MUSLSHA1 := 1370c9a812b2cf2a7d92802510cca0058cc37e66a7bedd70051f0a34015022a3
 MUSLFILE := musl-$(MUSLVER).tar.gz
 
 # form our triplet, arm needs to be hardware float
