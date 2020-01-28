@@ -134,6 +134,7 @@ GCCVER       := 9.2.0
 BINUTILSVER  := 2.33.1
 MUSLVER      := 1.1.24
 ISLVER       := 0.21
+LINUXVER     := headers-4.4.2-4
 
 # musl
 MUSLSHA1 := b0b5ddf6b65355ac02e2f11c3d262ac5dcf0bab5
@@ -228,6 +229,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'BINUTILS_VER = $(BINUTILSVER)' >> $@
 	echo 'MUSL_VER = $(MUSLVER)' >> $@
 	echo 'ISL_VER = $(ISLVER)' >> $@
+	echo 'LINUX_VER = $(LINUXVER)' >> $@
 	echo 'DL_CMD = curl -k -C - -L -o' >> $@
 	echo 'TARGET = $(TRIPLET)' >> $@
 	echo 'COMMON_CONFIG += CFLAGS="-fPIC -g0 -Os" CXXFLAGS="-fPIC -g0 -Os"' >> $@
