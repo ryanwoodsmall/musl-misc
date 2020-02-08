@@ -53,7 +53,7 @@
 
 # XXX - look at .ONESHELL
 #       https://www.gnu.org/software/make/manual/html_node/One-Shell.html
-#     - add optional "test -e config.mak.custom" & append to config.mak 
+#     - add optional "test -e config.mak.custom" & append to config.mak
 
 # XXX - need static and shared config
 #       SHARED_CONFIG
@@ -218,7 +218,7 @@ prereqs:
 	echo
 	echo 'attempting to make directory $(CWSTATICINST)'
 	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
-	mkdir -p $(CWSTATICINST) 
+	mkdir -p $(CWSTATICINST)
 	echo
 	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
 	test -e $(CONFMAKDIST)
