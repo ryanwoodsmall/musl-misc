@@ -279,6 +279,7 @@ get_patches: remove_patches
 	# XXX - wget needs to be changed to whatever $(DL_CMD) is set to
 	mkdir -p ./patches/gcc-$(GCCVER) || true
 	wget -P ./patches/gcc-$(GCCVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_gcc-$(GCCVER).diff
+	wget -P ./patches/gcc-$(GCCVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-gcc-$(GCCVER)-libstdcpp-v3-configure.diff
 	mkdir -p ./patches/binutils-$(BINUTILSVER) || true
 	wget -P ./patches/binutils-$(BINUTILSVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_binutils-$(BINUTILSVER).diff
 	# XXX - hackity hacky hack
