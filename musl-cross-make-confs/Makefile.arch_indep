@@ -121,6 +121,9 @@
 #       bah
 #       - https://stackoverflow.com/questions/46827433/g-compile-error-rodata-can-not-be-used-when-making-a-shared-object-recomp
 #       - https://github.com/rust-lang/rust/issues/47037
+#       - https://stackoverflow.com/questions/23257965/how-do-i-compile-gnu-libstdc-a-with-pic
+#       - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=28811
+#       - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58638
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
