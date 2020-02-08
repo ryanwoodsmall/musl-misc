@@ -124,6 +124,7 @@
 #       - https://stackoverflow.com/questions/23257965/how-do-i-compile-gnu-libstdc-a-with-pic
 #       - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=28811
 #       - https://gcc.gnu.org/bugzilla/show_bug.cgi?id=58638
+#       may need to replace $lt_prog_compiler_pic_CXX with explicit -fPIC
 
 # basic stuff: shell, timestamp and architecture
 SHELL        := /bin/bash
