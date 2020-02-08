@@ -1,0 +1,13 @@
+--- gcc-9.2.0.PRISTINE/libstdc++-v3/configure	2020-02-08 08:59:52.881146645 +0000
++++ gcc-9.2.0/libstdc++-v3/configure	2020-02-08 09:00:40.454599778 +0000
+@ -15262,8 +15262,8 @@
+   glibcxx_compiler_shared_flag="-D_GLIBCXX_SHARED"
+ 
+ else
+-  glibcxx_lt_pic_flag=
+-  glibcxx_compiler_pic_flag=
++  glibcxx_lt_pic_flag="-prefer-pic"
++  glibcxx_compiler_pic_flag="$lt_prog_compiler_pic_CXX"
+   glibcxx_compiler_shared_flag=
+ fi
+ 
