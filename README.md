@@ -16,6 +16,8 @@ musl C library miscellaneous
 - docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
 
 ## todo
+- **musl-cross-make** commit should be included in a text file to make tracking easier (needs git)
+- **riscv64** kernel headers not included... need to fix
 - integrate off64\_t/loff\_t fixes for gccgo, etc.:
   - https://www.mail-archive.com/gcc-bugs@gcc.gnu.org/msg476845.html
   - http://gcc-patches.gcc.gnu.narkive.com/xkNPk6Vm/libgo-patch-committed-fill-out-syscall-package-for-gnu-linux
