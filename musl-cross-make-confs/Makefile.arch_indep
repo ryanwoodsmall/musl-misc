@@ -113,8 +113,6 @@
 #     - sets custom MUSL_DYNAMIC_LINKER/MUSL_DYNAMIC_LINKER32/MUSL_DYNAMIC_LINKER64 with full path
 #     - applied only during final static compilation step
 
-# XXX - add a file identifying the git commit of musl-cross-make
-
 # XXX - libstdc++.a objects being compiled without -fPIC, why?
 #       makes .so link hard/impossible
 #       maybe "-no-pie" is needed?
@@ -210,6 +208,7 @@ prereqs:
 	curl --version | egrep -qi '(tls|ssl)'
 	gcc  --version | egrep -qi '^gcc'
 	g++  --version | egrep -qi '^g\+\+'
+	git  --version | egrep -qi '^git version'
 	make --version | egrep -qi '^GNU Make'
 	# XXX - busybox wget from crosware appears to work fine
 	# XXX - just verify it's available for now
@@ -295,7 +294,7 @@ build_shared: $(CONFMAK).shared get_patches
 	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
-	make
+	make -j`nproc`
 	make install
 	make clean
 
@@ -305,8 +304,9 @@ build_static: $(CONFMAK).static build_shared get_patches
 	hash -r
 	cat $< > $(CONFMAK)
 	make clean || echo -n
-	make
+	make -j`nproc`
 	make install
+	git rev-parse HEAD > $(CWSTATICINST)/musl-cross-make_commit.txt
 	# XXX - need binutils/gmp/mpc/mpfr libs for self-hosting?
 	# XXX - is this safe???
 	# XXX - crosware has gmp, mpfr, mpc, binutils recipes now...
