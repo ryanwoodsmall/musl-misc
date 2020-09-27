@@ -4,6 +4,7 @@
 #  aarch64-linux-musl
 #  arm-linux-musleabihf
 #  i686-linux-musl
+#  riscv64-linux-musl
 #  x86_64-linux-musl
 
 # prereqs:
@@ -273,6 +274,8 @@ $(CONFMAK).static: $(CONFMAK).common
 	echo 'OUTPUT = $(CWSTATICINST)' >> $@
 	# XXX - need this? need libstdc++ compiled w/-fPIC, not sure how...
 	echo 'GCC_CONFIG += --disable-host-shared' >> $@
+	# XXX - risc-v 64-bit (riscv64) only???
+	echo $(TRIPLET) | grep -q riscv64 && echo 'LINUX_VER = 4.19.90' >> $@ || true
 	sort -o $@ $@
 
 # custom ld.so path stuff
