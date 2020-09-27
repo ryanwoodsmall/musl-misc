@@ -15,7 +15,7 @@
  #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
 --- gcc-9.2.0.PRISTINE/gcc/config/arm/linux-eabi.h
 +++ gcc-9.2.0/gcc/config/arm/linux-eabi.h
-@@ -85,8 +85,7 @@
+@@ -88,8 +88,7 @@
  #else
  #define MUSL_DYNAMIC_LINKER_E "%{mbig-endian:eb}"
  #endif
@@ -46,3 +46,14 @@
 +#define MUSL_DYNAMIC_LINKER64 "/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/lib/ld.so"
  #undef MUSL_DYNAMIC_LINKERX32
  #define MUSL_DYNAMIC_LINKERX32 "/lib/ld-musl-x32.so.1"
+--- gcc-9.2.0.PRISTINE/gcc/config/riscv/linux.h
++++ gcc-9.2.0/gcc/config/riscv/linux.h
+@@ -33,7 +33,7 @@
+   "%{mabi=lp64d:}"
+ 
+ #undef MUSL_DYNAMIC_LINKER
+-#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-riscv" XLEN_SPEC MUSL_ABI_SUFFIX ".so.1"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/riscv64-linux-musl/lib/ld.so"
+ 
+ /* Because RISC-V only has word-sized atomics, it requries libatomic where
+    others do not.  So link libatomic by default, as needed.  */
