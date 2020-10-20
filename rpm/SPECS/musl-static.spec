@@ -3,7 +3,7 @@
 %define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
-Version:	1.1.24
+Version:	1.2.0
 Release:	0%{?dist}
 Summary:	musl is a standard C/POSIX library
 
