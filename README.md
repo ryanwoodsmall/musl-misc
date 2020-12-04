@@ -16,6 +16,7 @@ musl C library miscellaneous
 - docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
 
 ## todo
+- `--enable-new-dtags` - RUNPATH instead of RPATH
 - need gnu patch, should test for it
 - **riscv64** kernel headers not included... need to fix (make general for non intel/arm)
 - integrate off64\_t/loff\_t fixes for gccgo, etc.:
