@@ -3,7 +3,7 @@
 %define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
-Version:	1.2.1
+Version:	1.2.2
 Release:	1%{?dist}
 Summary:	musl is a standard C/POSIX library
 
@@ -11,7 +11,6 @@ Group:		Development/Libraries
 License:	MIT
 URL:		http://www.musl-libc.org/
 Source0:	http://www.musl-libc.org/releases/%{spname}-%{version}.tar.gz
-Patch0:		https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/patches/CVE-2020-28928.patch
 
 BuildRequires:	gcc
 BuildRequires:	glibc-static
@@ -31,7 +30,6 @@ This package provides compiler wrappers, headers, and static libraries for
 
 %prep
 %setup -q -n %{spname}-%{version}
-%patch0 -p1
 
 
 %build
@@ -69,6 +67,9 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Fri Jan 15 2021 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.2-1
+- musl 1.2.2
+
 * Wed Dec 30 2020 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.1-1
 - CVE-2020-28928
 
