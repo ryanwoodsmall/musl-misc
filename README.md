@@ -16,6 +16,8 @@ musl C library miscellaneous
 - docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
 
 ## todo
+- crank up default stack size? from habitat core/musl (default 80KB -> 2MB?):
+  - `sed -i 's/#define DEFAULT_STACK_SIZE .*/#define DEFAULT_STACK_SIZE 2097152/' src/internal/pthread_impl.h`
 - `--enable-new-dtags` - RUNPATH instead of RPATH
 - need gnu patch, should test for it
 - **riscv64** kernel headers not included... need to fix (make general for non intel/arm)
