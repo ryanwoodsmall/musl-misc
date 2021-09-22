@@ -136,7 +136,7 @@ endif
 ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
 # versions
-GCCVER       := 9.2.0
+GCCVER       := 9.4.0
 BINUTILSVER  := 2.33.1
 MUSLVER      := 1.1.24
 ISLVER       := 0.21
