@@ -136,14 +136,14 @@ endif
 ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 
 # versions
-GCCVER       := 9.4.0
+GCCVER       := 10.3.0
 BINUTILSVER  := 2.33.1
 MUSLVER      := 1.2.2
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
 # musl
-MUSLSHA1 := b0b5ddf6b65355ac02e2f11c3d262ac5dcf0bab5
+MUSLSHA1 := null
 MUSLFILE := musl-$(MUSLVER).tar.gz
 
 # form our triplet, arm needs to be hardware float

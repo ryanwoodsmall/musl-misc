@@ -1,0 +1,59 @@
+--- gcc-10.3.0.PRISTINE/gcc/config/aarch64/aarch64-linux.h
++++ gcc-10.3.0/gcc/config/aarch64/aarch64-linux.h
+@@ -21,10 +21,10 @@
+ #ifndef GCC_AARCH64_LINUX_H
+ #define GCC_AARCH64_LINUX_H
+ 
+-#define GLIBC_DYNAMIC_LINKER "/lib/ld-linux-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
++#define GLIBC_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so"
+ 
+ #undef MUSL_DYNAMIC_LINKER
+-#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-aarch64%{mbig-endian:_be}%{mabi=ilp32:_ilp32}.so.1"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/aarch64-linux-musl/lib/ld.so"
+ 
+ #undef  ASAN_CC1_SPEC
+ #define ASAN_CC1_SPEC "%{%:sanitize(address):-funwind-tables}"
+--- gcc-10.3.0.PRISTINE/gcc/config/arm/linux-eabi.h
++++ gcc-10.3.0/gcc/config/arm/linux-eabi.h
+@@ -88,8 +88,7 @@
+ #else
+ #define MUSL_DYNAMIC_LINKER_E "%{mbig-endian:eb}"
+ #endif
+-#define MUSL_DYNAMIC_LINKER \
+-  "/lib/ld-musl-arm" MUSL_DYNAMIC_LINKER_E "%{mfloat-abi=hard:hf}%{mfdpic:-fdpic}.so.1"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/arm-linux-musleabihf/lib/ld.so"
+ 
+ /* At this point, bpabi.h will have clobbered LINK_SPEC.  We want to
+    use the GNU/Linux version, not the generic BPABI version.  */
+--- gcc-10.3.0.PRISTINE/gcc/config/i386/linux.h
++++ gcc-10.3.0/gcc/config/i386/linux.h
+@@ -23,4 +23,4 @@
+ #define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
+ 
+ #undef MUSL_DYNAMIC_LINKER
+-#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-i386.so.1"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/i686-linux-musl/lib/ld.so"
+--- gcc-10.3.0.PRISTINE/gcc/config/i386/linux64.h
++++ gcc-10.3.0/gcc/config/i386/linux64.h
+@@ -32,8 +32,8 @@
+ #define GLIBC_DYNAMIC_LINKERX32 "/libx32/ld-linux-x32.so.2"
+ 
+ #undef MUSL_DYNAMIC_LINKER32
+-#define MUSL_DYNAMIC_LINKER32 "/lib/ld-musl-i386.so.1"
++#define MUSL_DYNAMIC_LINKER32 "/usr/local/crosware/software/statictoolchain/current/i686-linux-musl/lib/ld.so"
+ #undef MUSL_DYNAMIC_LINKER64
+-#define MUSL_DYNAMIC_LINKER64 "/lib/ld-musl-x86_64.so.1"
++#define MUSL_DYNAMIC_LINKER64 "/usr/local/crosware/software/statictoolchain/current/x86_64-linux-musl/lib/ld.so"
+ #undef MUSL_DYNAMIC_LINKERX32
+ #define MUSL_DYNAMIC_LINKERX32 "/lib/ld-musl-x32.so.1"
+--- gcc-10.3.0.PRISTINE/gcc/config/riscv/linux.h
++++ gcc-10.3.0/gcc/config/riscv/linux.h
+@@ -33,7 +33,7 @@
+   "%{mabi=lp64d:}"
+ 
+ #undef MUSL_DYNAMIC_LINKER
+-#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-riscv" XLEN_SPEC MUSL_ABI_SUFFIX ".so.1"
++#define MUSL_DYNAMIC_LINKER "/usr/local/crosware/software/statictoolchain/current/riscv64-linux-musl/lib/ld.so"
+ 
+ /* Because RISC-V only has word-sized atomics, it requries libatomic where
+    others do not.  So link libatomic by default, as needed.  */

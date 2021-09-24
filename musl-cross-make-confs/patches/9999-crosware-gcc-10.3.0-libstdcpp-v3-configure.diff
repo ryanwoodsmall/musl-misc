@@ -1,0 +1,13 @@
+--- gcc-9.4.0.PRISTINE/libstdc++-v3/configure	2021-06-01 07:53:06.000000000 +0000
++++ gcc-9.4.0/libstdc++-v3/configure	2021-09-22 23:14:46.492397188 +0000
+@@ -15467,8 +15467,8 @@
+   glibcxx_compiler_shared_flag="-D_GLIBCXX_SHARED"
+ 
+ else
+-  glibcxx_lt_pic_flag=
+-  glibcxx_compiler_pic_flag=
++  glibcxx_lt_pic_flag="-prefer-pic"
++  glibcxx_compiler_pic_flag="$lt_prog_compiler_pic_CXX"
+   glibcxx_compiler_shared_flag=
+ fi
+ 
