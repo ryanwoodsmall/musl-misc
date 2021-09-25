@@ -139,7 +139,7 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 #GCCVER       := 10.3.0
 GCCVER       := 9.4.0
 BINUTILSVER  := 2.33.1
-MUSLVER      := 1.2.2
+MUSLVER      := 1.2.1
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
@@ -251,6 +251,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
+	echo 'MUSL_CONFIG += --with-malloc=oldmalloc' >> $@
 	sort -o $@ $@
 
 # temporary shared toolchain build config
@@ -284,10 +285,12 @@ get_patches: remove_patches
 	# XXX - change when default versions are updated
 	# XXX - wget needs to be changed to whatever $(DL_CMD) is set to
 	mkdir -p ./patches/gcc-$(GCCVER) || true
-	wget -P ./patches/gcc-$(GCCVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_gcc-$(GCCVER).diff
-	wget -P ./patches/gcc-$(GCCVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-gcc-$(GCCVER)-libstdcpp-v3-configure.diff
+	cd ./patches/gcc-$(GCCVER)/ ; curl -kLO https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_gcc-$(GCCVER).diff
+	cd ./patches/gcc-$(GCCVER)/ ; curl -kLO https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-gcc-$(GCCVER)-libstdcpp-v3-configure.diff
 	mkdir -p ./patches/binutils-$(BINUTILSVER) || true
-	wget -P ./patches/binutils-$(BINUTILSVER)/ https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_binutils-$(BINUTILSVER).diff
+	cd ./patches/binutils-$(BINUTILSVER)/ ; curl -kLO https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_binutils-$(BINUTILSVER).diff
+	mkdir -p ./patches/musl-$(MUSLVER) || true
+	cd ./patches/musl-$(MUSLVER) ; curl -kLo 9999-crosware-CVE-2020-28928.diff https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/patches/CVE-2020-28928.patch
 	# XXX - hackity hacky hack
 
 remove_patches:
