@@ -16,6 +16,9 @@ musl C library miscellaneous
 - docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
 
 ## todo
+- XXX - gcc 9.4 + musl 1.2.2 seems to break openssh+libressl
+- XXX - gcc 10 enables `-fno-common` by default, needs multiple workarounds
+- XXX - gcc 10 conflicts with crosware binutils, libiberty or similar, need to figure out
 - crank up default stack size? from habitat core/musl (default 80KB -> 2MB?):
   - `sed -i 's/#define DEFAULT_STACK_SIZE .*/#define DEFAULT_STACK_SIZE 2097152/' src/internal/pthread_impl.h`
 - `--enable-new-dtags` - RUNPATH instead of RPATH
