@@ -17,6 +17,9 @@ musl C library miscellaneous
 
 ## todo
 - XXX - gcc 9.4 + musl 1.2.2 seems to break openssh+libressl
+  - related to mallocng?
+  - 1.2.0 and 1.2.1 w/`--with-malloc=oldmalloc` in `MUSL_CONFIG` seems to work
+  - 1.2.2 doesn't want to build with `--with-malloc=oldmalloc`
 - XXX - gcc 10 enables `-fno-common` by default, needs multiple workarounds
 - XXX - gcc 10 conflicts with crosware binutils, libiberty or similar, need to figure out
 - crank up default stack size? from habitat core/musl (default 80KB -> 2MB?):
