@@ -1,0 +1,11 @@
+--- a/src/internal/pthread_impl.h	2021-09-25 05:00:30.832338305 +0000
++++ b/src/internal/pthread_impl.h	2021-09-25 05:01:44.000621445 +0000
+@@ -194,7 +194,7 @@
+ extern hidden unsigned __default_stacksize;
+ extern hidden unsigned __default_guardsize;
+ 
+-#define DEFAULT_STACK_SIZE 131072
++#define DEFAULT_STACK_SIZE 2097152
+ #define DEFAULT_GUARD_SIZE 8192
+ 
+ #define DEFAULT_STACK_MAX (8<<20)
