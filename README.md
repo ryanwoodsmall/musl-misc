@@ -50,6 +50,32 @@ musl C library miscellaneous
     - **wget wrapper**
     - ```crosware install statictoolchain git ; crosware update ; crosware install binutils slibtool ; . ${cwtop}/etc/profile```
 
+### alpine options
+
+```
+--enable-checking=release
+--disable-fixed-point
+--disable-libstdcxx-pch
+--disable-multilib
+--disable-nls
+--disable-werror
+--disable-symvers
+--enable-__cxa_atexit
+--enable-default-pie
+--enable-default-ssp
+--enable-cloog-backend
+--enable-languages=c,c++,d,objc,go,fortran,ada
+--disable-libssp
+--disable-libmpx
+--disable-libmudflap
+--disable-libsanitizer
+--enable-shared
+--enable-threads
+--enable-tls
+--with-system-zlib
+--with-linker-hash-style=gnu
+```
+
 #### this doesn't work:::
 
 **OLD**
