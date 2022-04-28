@@ -164,6 +164,10 @@ ifeq ($(ARCH),arm)
 endif
 
 # build out paths to expand into
+# XXX - make pkg and add a postfix i.e., name pacakge "statictoolchin9"
+#   CWPKG   := statictoolchain
+#   CWPOST  :=
+#   MUSLTOP := $(CWTOP)/software/$(CWPKG)$(CWPOST)
 TMPSHAREDDIR := $(PWD)/shared-build
 CWTOP        := /usr/local/crosware
 MUSLTOP      := $(CWTOP)/software/statictoolchain
