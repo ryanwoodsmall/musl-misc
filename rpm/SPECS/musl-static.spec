@@ -3,7 +3,7 @@
 %define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
-Version:	1.2.2
+Version:	1.2.3
 Release:	1%{?dist}
 Summary:	musl is a standard C/POSIX library
 
@@ -67,6 +67,9 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Fri Apr 29 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-1
+- musl 1.2.3
+
 * Fri Jan 15 2021 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.2-1
 - musl 1.2.2
 
