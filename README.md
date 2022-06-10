@@ -16,6 +16,8 @@ musl C library miscellaneous
 - docker container: https://hub.docker.com/r/ryanwoodsmall/crosware
 
 ## todo
+- XXX - move to either a .gz (everywhere) or an .xz (maybe not everywhere) archive
+- XXX - 9cc 9.5.0 + musl 1.2.3 is the end of line for 9, need to figure out 10/11/12
 - XXX - gcc 9.4 + musl 1.2.2 seems to break openssh+libressl
   - related to mallocng?
   - 1.2.0 and 1.2.1 w/`--with-malloc=oldmalloc` in `MUSL_CONFIG` seems to work
