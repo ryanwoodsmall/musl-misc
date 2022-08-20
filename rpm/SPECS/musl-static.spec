@@ -70,7 +70,7 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
-* Fri Aug 20 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
+* Fri Aug 19 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
 - no glibc-static on rhel >= 8
 
 * Fri Apr 29 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-1
