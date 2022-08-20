@@ -1,3 +1,5 @@
+%global	debug_package	%{nil}
+
 %define	spname		musl
 %define	musldir		%{_usr}/local/%{spname}
 %define	profiled	%{_sysconfdir}/profile.d
@@ -72,6 +74,7 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 %changelog
 * Fri Aug 19 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
 - no glibc-static on rhel >= 8
+- turn off debug?
 
 * Fri Apr 29 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-1
 - musl 1.2.3
