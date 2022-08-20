@@ -4,7 +4,7 @@
 
 Name:		%{spname}-static
 Version:	1.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -13,11 +13,14 @@ URL:		http://www.musl-libc.org/
 Source0:	http://www.musl-libc.org/releases/%{spname}-%{version}.tar.gz
 
 BuildRequires:	gcc
-BuildRequires:	glibc-static
 BuildRequires:	glibc-headers
 BuildRequires:	kernel-headers
 Requires:	gcc
 Requires:	kernel-headers
+
+%if 0%{?rhel} < 8
+BuildRequires:	glibc-static
+%endif
 
 %description
 %{spname} provides a new standard library to power a new generation of
@@ -67,6 +70,9 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Fri Aug 20 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
+- no glibc-static on rhel >= 8
+
 * Fri Apr 29 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-1
 - musl 1.2.3
 
