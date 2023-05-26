@@ -5,8 +5,8 @@
 %define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
-Version:	1.2.3
-Release:	2%{?dist}
+Version:	1.2.4
+Release:	0%{?dist}
 Summary:	musl is a standard C/POSIX library
 
 Group:		Development/Libraries
@@ -72,6 +72,9 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
+* Thu May 25 2023 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.4-0
+- musl 1.2.4
+
 * Fri Aug 19 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
 - no glibc-static on rhel >= 8
 - turn off debug?
