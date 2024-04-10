@@ -5,7 +5,7 @@
 %define	profiled	%{_sysconfdir}/profile.d
 
 Name:		%{spname}-static
-Version:	1.2.4
+Version:	1.2.5
 Release:	0%{?dist}
 Summary:	musl is a standard C/POSIX library
 
@@ -72,72 +72,75 @@ ln -s /usr/include/mtd %{buildroot}%{musldir}/include/
 
 
 %changelog
-* Thu May 25 2023 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.4-0
+* Wed Apr 10 2024 ryan woodsmall - 1.2.5-0
+- musl 1.2.5
+
+* Thu May 25 2023 ryan woodsmall - 1.2.4-0
 - musl 1.2.4
 
-* Fri Aug 19 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-2
+* Fri Aug 19 2022 ryan woodsmall - 1.2.3-2
 - no glibc-static on rhel >= 8
 - turn off debug?
 
-* Fri Apr 29 2022 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.3-1
+* Fri Apr 29 2022 ryan woodsmall - 1.2.3-1
 - musl 1.2.3
 
-* Fri Jan 15 2021 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.2-1
+* Fri Jan 15 2021 ryan woodsmall - 1.2.2-1
 - musl 1.2.2
 
-* Wed Dec 30 2020 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.1-1
+* Wed Dec 30 2020 ryan woodsmall - 1.2.1-1
 - CVE-2020-28928
 
-* Tue Oct 20 2020 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.1-0
+* Tue Oct 20 2020 ryan woodsmall - 1.2.1-0
 - musl 1.2.1
 
-* Tue Oct 20 2020 ryan woodsmall <rwoodsmall@gmail.com> - 1.2.0-0
+* Tue Oct 20 2020 ryan woodsmall - 1.2.0-0
 - musl 1.2.0
 
-* Sat Oct 26 2019 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.24-0
+* Sat Oct 26 2019 ryan woodsmall - 1.1.24-0
 - musl 1.1.24
 
-* Wed Jul 17 2019 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.23-0
+* Wed Jul 17 2019 ryan woodsmall - 1.1.23-0
 - musl 1.1.23
 
-* Thu Apr 11 2019 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.22-0
+* Thu Apr 11 2019 ryan woodsmall - 1.1.22-0
 - musl 1.1.22
 
-* Tue Jan 22 2019 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.21-0
+* Tue Jan 22 2019 ryan woodsmall - 1.1.21-0
 - musl 1.1.21
 
-* Tue Sep 11 2018 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.20-0
+* Tue Sep 11 2018 ryan woodsmall - 1.1.20-0
 - musl 1.1.20
 
-* Thu Feb 22 2018 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.19-0
+* Thu Feb 22 2018 ryan woodsmall - 1.1.19-0
 - musl 1.1.19
 
-* Wed Nov  1 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.18-0
+* Wed Nov  1 2017 ryan woodsmall - 1.1.18-0
 - musl 1.1.18
 
-* Fri Oct 20 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.17-0
+* Fri Oct 20 2017 ryan woodsmall - 1.1.17-0
 - musl 1.1.17
 
-* Wed Feb  1 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-7
+* Wed Feb  1 2017 ryan woodsmall - 1.1.16-7
 - /usr/include/mtd symlink for musl
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-6
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-6
 - require glibc-headers
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-5
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-5
 - use %{_sysconfdir} instead of hard-coding /etc
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-4
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-4
 - disable all optimzations
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-3
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-3
 - fix description
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-2
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-2
 - kernel-headers symlinks
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-1
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-1
 - initial RPM build
 
-* Tue Jan 31 2017 ryan woodsmall <rwoodsmall@gmail.com> - 1.1.16-0
+* Tue Jan 31 2017 ryan woodsmall - 1.1.16-0
 - add profile.d script
