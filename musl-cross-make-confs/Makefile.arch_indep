@@ -139,7 +139,9 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 #GCCVER       := 10.3.0
 GCCVER       := 9.4.0
 BINUTILSVER  := 2.33.1
-MUSLVER      := 1.2.5
+# XXX - gettexttiny breaks between 1.2.4 and 1.2.5; need to bisect to figure out where
+#MUSLVER      := 1.2.5
+MUSLVER      := 1.2.4
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
@@ -255,7 +257,7 @@ $(CONFMAK).common: cleanconfs
 	echo 'GCC_CONFIG += $(ARCH_GCC_CONFIG)' >> $@
 	echo 'BINUTILS_CONFIG += --enable-install-libiberty' >> $@
 	echo 'BINUTILS_CONFIG += --disable-lto' >> $@
-	echo 'MUSL_CONFIG += --with-malloc=oldmalloc' >> $@
+	#echo 'MUSL_CONFIG += --with-malloc=oldmalloc' >> $@
 	sort -o $@ $@
 
 # temporary shared toolchain build config
