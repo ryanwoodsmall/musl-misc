@@ -9,7 +9,7 @@
 
 # prereqs:
 #  bash (gnu)
-#  bzip2 (busybox should be fine)
+#  gzip (busybox should be fine)
 #  curl (with ssl/tls support)
 #  gcc/g++
 #  ln (busybox should be fine)
@@ -139,7 +139,7 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 #GCCVER       := 10.3.0
 GCCVER       := 9.4.0
 BINUTILSVER  := 2.33.1
-MUSLVER      := 1.2.1
+MUSLVER      := 1.2.5
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
@@ -181,7 +181,7 @@ CWCURRENTLD  := $(CWCURRENT)/$(TRIPLET)/lib/ld.so
 # our final archive will be dumped to /tmp
 CWSTATICDIR  := $(shell basename $(CWSTATICINST))
 CWSTATICTAR  := /tmp/$(CWSTATICDIR).tar
-CWSTATICBZ2  := $(CWSTATICTAR).bz2
+CWSTATICGZ   := $(CWSTATICTAR).gz
 
 # and add our temp shared build to our path
 EXPATH       := $(TMPSHAREDDIR)/bin
@@ -209,7 +209,7 @@ cleanconfs:
 # we need to check we're not using busybox wget too - no ssl by default
 prereqs:
 	echo 'checking prerequisites'
-	which bzip2
+	which gzip
 	bash --version | egrep -qi '^GNU bash'
 	curl --version | egrep -qi '(tls|ssl)'
 	gcc  --version | egrep -qi '^gcc'
@@ -345,7 +345,7 @@ create_symlinks: build_static
 archive_compiler: create_symlinks
 	echo 'archiving static compiler'
 	cd $(MUSLTOP) ; tar -cf $(CWSTATICTAR) $(CWSTATICDIR)
-	bzip2 -9 $(CWSTATICTAR)
+	gzip -9 $(CWSTATICTAR)
 	echo
-	echo 'static compiler archived to $(CWSTATICBZ2)'
+	echo 'static compiler archived to $(CWSTATICGZ)'
 	echo
