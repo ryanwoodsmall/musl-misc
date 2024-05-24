@@ -143,9 +143,9 @@ MUSLVER      := 1.2.5
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
-# musl
-MUSLSHA1 := null
-MUSLFILE := musl-$(MUSLVER).tar.gz
+## musl
+#MUSLSHA1 := null
+#MUSLFILE := musl-$(MUSLVER).tar.gz
 
 # form our triplet, arm needs to be hardware float
 TRIPLET_BASE := $(ARCH)-linux-musl
@@ -192,13 +192,13 @@ export PATH
 CONFMAK      := config.mak
 CONFMAKDIST  := $(CONFMAK).dist
 
-.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches muslsha
+.PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches # muslsha
 
-all: muslsha prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler
+all: prereqs cleanconfs config.mak.common config.mak.shared config.mak.static build_shared build_static create_symlinks archive_compiler # muslsha
 
-# generate a musl sha file if there isn't one
-muslsha:
-	test -e hashes/$(MUSLFILE).sha1 || echo '$(MUSLSHA1)  $(MUSLFILE)' > hashes/$(MUSLFILE).sha1
+## generate a musl sha file if there isn't one
+#muslsha:
+#	test -e hashes/$(MUSLFILE).sha1 || echo '$(MUSLSHA1)  $(MUSLFILE)' > hashes/$(MUSLFILE).sha1
 
 # clean up configs everytime we run
 cleanconfs:
@@ -293,8 +293,8 @@ get_patches: remove_patches
 	cd ./patches/gcc-$(GCCVER)/ ; curl -kLO https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-gcc-$(GCCVER)-libstdcpp-v3-configure.diff
 	mkdir -p ./patches/binutils-$(BINUTILSVER) || true
 	cd ./patches/binutils-$(BINUTILSVER)/ ; curl -kLO https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/musl-cross-make-confs/patches/9999-crosware-ldso_binutils-$(BINUTILSVER).diff
-	mkdir -p ./patches/musl-$(MUSLVER) || true
-	cd ./patches/musl-$(MUSLVER) ; curl -kLo 9999-crosware-CVE-2020-28928.diff https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/patches/CVE-2020-28928.patch
+	#mkdir -p ./patches/musl-$(MUSLVER) || true
+	#cd ./patches/musl-$(MUSLVER) ; curl -kLo 9999-crosware-CVE-2020-28928.diff https://raw.githubusercontent.com/ryanwoodsmall/musl-misc/master/patches/CVE-2020-28928.patch
 	# XXX - hackity hacky hack
 
 remove_patches:
