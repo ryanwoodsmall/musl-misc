@@ -231,9 +231,9 @@ prereqs:
 	echo 'if this fails, make sure you can write to $(CWSTATICINST) or its parent directory'
 	mkdir -p $(CWSTATICINST)
 	echo
-	echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
-	test -e $(CONFMAKDIST)
-	echo
+	#echo 'if this fails, make sure you are running in a musl-cross-make git checkout'
+	#test -e $(CONFMAKDIST)
+	#echo
 
 # $(CONFMAK) common toolchain options
 $(CONFMAK).common: cleanconfs
