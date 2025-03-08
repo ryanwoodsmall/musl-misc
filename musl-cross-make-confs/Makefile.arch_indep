@@ -139,9 +139,11 @@ ARCH         := $(shell uname -m | sed 's/^\(arm\).*/\1/g')
 #GCCVER       := 10.3.0
 GCCVER       := 9.4.0
 BINUTILSVER  := 2.33.1
-# XXX - gettexttiny breaks between 1.2.4 and 1.2.5; need to bisect to figure out where
+# XXX - gettexttiny/iconv/... ??? breaks between 1.2.4 and 1.2.5; need to bisect to figure out where
+# XXX - vim can't build with gettexttiny, can build with gettext; mandoc can't build with either on 1.2.5?
 MUSLVER      := 1.2.5
 #MUSLVER      := 1.2.4
+#MUSLVER      := 1.2.1
 ISLVER       := 0.21
 #LINUXVER     := 4.4.10
 
@@ -195,6 +197,10 @@ export PATH
 # musl-cross-make stuff
 CONFMAK      := config.mak
 CONFMAKDIST  := $(CONFMAK).dist
+DL_CMD       := curl -kLo
+
+# other
+MAKE_JOBS := $(shell nproc)
 
 .PHONY: all prereqs build_shared build_static cleanconfs create_symlinks archive_compiler get_patches remove_patches # muslsha
 
@@ -318,7 +324,7 @@ build_shared: $(CONFMAK).shared get_patches
 	echo 'building temporary shared compiler'
 	cat $< > $(CONFMAK)
 	make clean || echo -n
-	make -j`nproc`
+	make -j$(MAKE_JOBS)
 	make install
 	make clean
 
@@ -328,7 +334,7 @@ build_static: $(CONFMAK).static build_shared get_patches
 	hash -r
 	cat $< > $(CONFMAK)
 	make clean || echo -n
-	make -j`nproc`
+	make -j$(MAKE_JOBS)
 	make install
 	git rev-parse HEAD > $(CWSTATICINST)/musl-cross-make_commit.txt
 	# XXX - need binutils/gmp/mpc/mpfr libs for self-hosting?
